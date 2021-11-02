@@ -7,8 +7,13 @@ import HomeTop from "../components/home/HomeTop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HomeTopMobile from "../components/home/HomeTopMobile";
+import FooterDesktop from "../components/common/FooterDesktop";
 
 class HomePage extends Component {
+    componentDidMount() {
+        window.scroll(0,0)
+    }
+
     render() {
         return (
             <Fragment>
@@ -24,6 +29,7 @@ class HomePage extends Component {
                 <NewArrival />
                 <Collection />
                 <Categories />
+                <FooterDesktop/>
             </Fragment>
         );
     }

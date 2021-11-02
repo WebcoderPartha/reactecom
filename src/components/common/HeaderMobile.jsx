@@ -52,7 +52,7 @@ class HeaderMobile extends Component {
                                         <i className="fa fa-bars"></i>
                                     </Button>
                                     &nbsp;&nbsp;&nbsp;
-                                    <Link to={'/'}> <img className="nav-logo" src={Logo} /> </Link>
+                                    <Link to={'/'}> <img className="nav-logo" src={Logo} alt=""/> </Link>
                                     &nbsp;&nbsp;&nbsp;
                                     <Button className="cart-btn">
                                         <i className="fa fa-shopping-cart"></i> 3 Items

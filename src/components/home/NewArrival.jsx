@@ -3,6 +3,7 @@ import {Card, Container, Row} from "react-bootstrap";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {Link} from "react-router-dom";
 
 class NewArrival extends Component {
     constructor(props) {
@@ -70,82 +71,94 @@ class NewArrival extends Component {
                     <Row className={'text-center'}>
                         <Slider ref={c => {this.slider = c}} {...settings}>
                             <div>
-                                <Card className={'image-box'}>
-                                    <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                    <Card.Body className={'text-center'}>
-                                        <Card.Text className={'product-name-on-card'}>
-                                            REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                        </Card.Text>
-                                        <Card.Text className={'product-price-on-card'}>
-                                            $55
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <Link to="/product-details">
+                                    <Card className={'image-box'}>
+                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
+                                        <Card.Body className={'text-center'}>
+                                            <Card.Text className={'product-name-on-card'}>
+                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
+                                            </Card.Text>
+                                            <Card.Text className={'product-price-on-card'}>
+                                                $55
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
                             </div>
                             <div>
-                                <Card className={'image-box'}>
-                                    <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                    <Card.Body className={'text-center'}>
-                                        <Card.Text className={'product-name-on-card'}>
-                                            REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                        </Card.Text>
-                                        <Card.Text className={'product-price-on-card'}>
-                                            $55
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <Link to="/product-details">
+                                    <Card className={'image-box'}>
+                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
+                                        <Card.Body className={'text-center'}>
+                                            <Card.Text className={'product-name-on-card'}>
+                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
+                                            </Card.Text>
+                                            <Card.Text className={'product-price-on-card'}>
+                                                $55
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
                             </div>
                             <div>
-                                <Card className={'image-box'}>
-                                    <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                    <Card.Body className={'text-center'}>
-                                        <Card.Text className={'product-name-on-card'}>
-                                            REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                        </Card.Text>
-                                        <Card.Text className={'product-price-on-card'}>
-                                            $55
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <Link to="/product-details">
+                                    <Card className={'image-box'}>
+                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
+                                        <Card.Body className={'text-center'}>
+                                            <Card.Text className={'product-name-on-card'}>
+                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
+                                            </Card.Text>
+                                            <Card.Text className={'product-price-on-card'}>
+                                                $55
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
                             </div>
                             <div>
-                                <Card className={'image-box'}>
-                                    <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                    <Card.Body className={'text-center'}>
-                                        <Card.Text className={'product-name-on-card'}>
-                                            REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                        </Card.Text>
-                                        <Card.Text className={'product-price-on-card'}>
-                                            $55
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <Link to="/product-details">
+                                    <Card className={'image-box'}>
+                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
+                                        <Card.Body className={'text-center'}>
+                                            <Card.Text className={'product-name-on-card'}>
+                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
+                                            </Card.Text>
+                                            <Card.Text className={'product-price-on-card'}>
+                                                $55
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
                             </div>
                             <div>
-                                <Card className={'image-box'}>
-                                    <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                    <Card.Body className={'text-center'}>
-                                        <Card.Text className={'product-name-on-card'}>
-                                            REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                        </Card.Text>
-                                        <Card.Text className={'product-price-on-card'}>
-                                            $55
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <Link to="/product-details">
+                                    <Card className={'image-box'}>
+                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
+                                        <Card.Body className={'text-center'}>
+                                            <Card.Text className={'product-name-on-card'}>
+                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
+                                            </Card.Text>
+                                            <Card.Text className={'product-price-on-card'}>
+                                                $55
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
                             </div>
                             <div>
-                                <Card className={'image-box'}>
-                                    <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                    <Card.Body className={'text-center'}>
-                                        <Card.Text className={'product-name-on-card'}>
-                                            REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                        </Card.Text>
-                                        <Card.Text className={'product-price-on-card'}>
-                                            $55
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <Link to="/product-details">
+                                    <Card className={'image-box'}>
+                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
+                                        <Card.Body className={'text-center'}>
+                                            <Card.Text className={'product-name-on-card'}>
+                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
+                                            </Card.Text>
+                                            <Card.Text className={'product-price-on-card'}>
+                                                $55
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
                             </div>
 
                         </Slider>

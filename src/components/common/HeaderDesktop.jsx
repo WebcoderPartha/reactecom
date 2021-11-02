@@ -14,7 +14,7 @@ class HeaderDesktop extends Component {
                             <Row>
                                 <Col lg={4} md={4} sm={12} xs={12}>
 
-                                    <Link to={'/'}> <img className="nav-logo" src={Logo} /> </Link>
+                                    <Link to={'/'}> <img className="nav-logo" src={Logo} alt=""/> </Link>
                                 </Col>
 
                                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
@@ -27,13 +27,13 @@ class HeaderDesktop extends Component {
                                 </Col>
 
                                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
-                                    <a>
+                                    <a href=" ">
                                         <i className="text-black fa h4 fa-heart"></i> <sup><span className="badge text-white bg-danger">4</span></sup>
                                     </a>
-                                    <a>
+                                    <a href=" ">
                                         <i className="text-black fa h4 fa-bell"></i> <sup><span className="badge text-white bg-danger">4</span></sup>
                                     </a>
-                                    <Link to="/" className="btn h4">Login</Link>
+                                    <Link to="/login" className="btn h4">Login</Link>
                                     <Button className="cart-btn">
                                         <i className="fa fa-shopping-cart"></i> 3 Items
                                     </Button>
