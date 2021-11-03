@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import product1 from "../../assets/images/product/product1.png"
 import product2 from "../../assets/images/product/product2.png"
 import product3 from "../../assets/images/product/product3.png"
@@ -14,20 +14,20 @@ class ProductDetails extends Component {
                         <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
                             <Row>
                                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-                                    <img className="w-100" src={product1} />
+                                    <img alt="" className="w-100" src={product1} />
                                     <Container  className="my-3">
                                         <Row>
                                             <Col className="p-0 m-0"  md={3} lg={3} sm={3} xs={3}>
-                                                <img className="w-100" src={product1} />
+                                                <img alt="" className="w-100" src={product1} />
                                             </Col>
                                             <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                                                <img className="w-100" src={product2} />
+                                                <img alt="" className="w-100" src={product2} />
                                             </Col>
                                             <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                                                <img className="w-100" src={product3} />
+                                                <img alt="" className="w-100" src={product3} />
                                             </Col>
                                             <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                                                <img className="w-100" src={product4} />
+                                                <img alt="" className="w-100" src={product4} />
                                             </Col>
                                         </Row>
                                     </Container>

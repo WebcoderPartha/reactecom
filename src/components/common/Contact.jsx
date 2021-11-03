@@ -3,8 +3,13 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import Validation from "../../Validation/Validation";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
+import Notify from "../../Noty/Notify";
+// import {toast, ToastContainer} from "react-toastify";
+// import 'react-toastify/dist/ReactToastify.css';
+
 
 class Contact extends Component {
+
     constructor() {
         super();
         this.state = {
@@ -13,11 +18,23 @@ class Contact extends Component {
             message: '',
             errName: '',
             errMessage: '',
-            errEmail: ''
+            errEmail: '',
+            address: '',
         }
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangeMessage = this.onChangeMessage.bind(this);
+    }
+    componentDidMount() {
+        axios.get(AppUrl.SiteInfo).then(res => {
+            if (res.status === 200){
+                this.setState({
+                    address:res.data.address
+                })
+            }
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     onChangeName(event){
@@ -39,24 +56,36 @@ class Contact extends Component {
         let message = this.state.message;
 
         if (name.length === 0){
-            alert('Name Empty');
+
+            Notify.warning("Name must not be empty!");
+
         }else if (email.length === 0){
-            alert('Email Empty');
+
+            Notify.warning("Email must not be empty!");
+
         }else if (message.length === 0){
-            alert('Message Empty');
+
+            Notify.warning("Message must not be empty!");
+
         }else if(!(Validation.validateName).test(name)){
-            alert('Invalid Name');
+
+            Notify.warning("Invalid name!");
+
         }else{
+
             let MyFormData = new FormData();
             MyFormData.append('name', name);
             MyFormData.append('email', email);
             MyFormData.append('message', message);
 
+            let sendBtn = document.getElementById('sendBtn');
+            sendBtn.innerHTML = "Sending";
+
             axios.post(AppUrl.ContactSend, MyFormData).then(res => {
                 if (res.status === 200){
                     document.getElementById('contactForm').reset();
-                    alert("Data sent successfully");
-
+                    Notify.success("Message sent successfully")
+                    sendBtn.innerHTML = "Send";
                 }
             }).catch(error => {
                 console.log(error)
@@ -96,17 +125,17 @@ class Contact extends Component {
                                 <Col className="p-0 Desktop m-0" md={6} lg={6} sm={6} xs={6}>
                                     <br></br><br></br>
                                     <p className="section-title-contact">
-                                        1635 Franklin Street Montgomery, Near Sherwood Mall. AL 36104
-                                        Email: Support@easylearningbd.com
+                                        {this.state.address}
                                     </p>
 
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d162771.1102477064!2d-74.10054944459704!3d40.70681480276415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1627241390779!5m2!1sen!2sbd" width="550" height="450" styles="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d162771.1102477064!2d-74.10054944459704!3d40.70681480276415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1627241390779!5m2!1sen!2sbd" width="550" height="450" styles="border:0;" allowFullScreen="0" title="ok" loading="lazy"></iframe>
 
                                 </Col>
                             </Row>
                         </Col>
                     </Row>
                 </Container>
+                {/*<ToastContainer />*/}
             </Fragment>
         );
     }

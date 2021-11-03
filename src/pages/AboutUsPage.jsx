@@ -2,9 +2,9 @@ import React, {Component, Fragment} from 'react';
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import UserLogin from "../components/common/UserLogin";
+import AboutUs from "../components/Others/AboutUs";
 
-class LoginPage extends Component {
+class AboutUsPage extends Component {
     componentDidMount() {
         window.scroll(0, 0)
     }
@@ -18,11 +18,10 @@ class LoginPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <UserLogin />
+                <AboutUs />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
-
-export default LoginPage;
+export default AboutUsPage
