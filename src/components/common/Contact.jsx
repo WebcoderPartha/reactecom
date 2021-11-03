@@ -1,7 +1,72 @@
 import React, {Component, Fragment} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import Validation from "../../Validation/Validation";
+import axios from "axios";
+import AppUrl from "../../api/AppUrl";
 
 class Contact extends Component {
+    constructor() {
+        super();
+        this.state = {
+            name: '',
+            email: '',
+            message: '',
+            errName: '',
+            errMessage: '',
+            errEmail: ''
+        }
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangeMessage = this.onChangeMessage.bind(this);
+    }
+
+    onChangeName(event){
+        this.setState({name:event.target.value});
+        // alert(name)
+    }
+    onChangeEmail(event){
+        this.setState({email:event.target.value})
+        // alert(email)
+    }
+    onChangeMessage(event){
+        this.setState({message:event.target.value})
+    }
+    sendMessage = (e) => {
+
+        e.preventDefault();
+        let name = this.state.name;
+        let email = this.state.email;
+        let message = this.state.message;
+
+        if (name.length === 0){
+            alert('Name Empty');
+        }else if (email.length === 0){
+            alert('Email Empty');
+        }else if (message.length === 0){
+            alert('Message Empty');
+        }else if(!(Validation.validateName).test(name)){
+            alert('Invalid Name');
+        }else{
+            let MyFormData = new FormData();
+            MyFormData.append('name', name);
+            MyFormData.append('email', email);
+            MyFormData.append('message', message);
+
+            axios.post(AppUrl.ContactSend, MyFormData).then(res => {
+                if (res.status === 200){
+                    document.getElementById('contactForm').reset();
+                    alert("Data sent successfully");
+
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+
+
+        }
+
+    }
+
     render() {
         return (
             <Fragment>
@@ -11,15 +76,15 @@ class Contact extends Component {
 
                             <Row className="text-center">
                                 <Col className="d-flex justify-content-center" md={6} lg={6} sm={12} xs={12}>
-                                    <Form id="contactForm" className="onboardForm">
+                                    <Form id="contactForm" onSubmit={this.sendMessage} className="onboardForm">
                                         <h4 className="section-title-login">CONTACT WITH US </h4>
                                         <h6 className="section-sub-title">Please Contact With Us </h6>
 
-                                        <input className="form-control m-2" type="text" placeholder="Enter Your Name" />
+                                        <input onChange={this.onChangeName} className="form-control m-2" type="text" placeholder="Enter Your Name" />
 
-                                        <input className="form-control m-2" type="email" placeholder="Enter Email" />
+                                        <input onChange={this.onChangeEmail} className="form-control m-2" type="email" placeholder="Enter Email" />
 
-                                        <Form.Control className="form-control m-2" as="textarea" rows={3} placeholder="Message" />
+                                        <Form.Control onChange={this.onChangeMessage} className="form-control m-2" as="textarea" rows={3} placeholder="Message" />
 
                                         <Button id="sendBtn" type="submit" className="btn btn-block m-2 site-btn-login"> Send </Button>
 

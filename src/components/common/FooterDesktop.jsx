@@ -41,6 +41,7 @@ class FooterDesktop extends Component {
 
                                 <a href=" " target="_blank"><img className="mt-2" src={logo} alt="" /></a><br></br>
                                 Change Your Language <br></br>
+                                <div id="google_translate_element"></div>
                             </Col>
 
 

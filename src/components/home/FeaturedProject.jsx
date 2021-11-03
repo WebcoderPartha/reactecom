@@ -13,7 +13,7 @@ class FeaturedProject extends Component {
                     </div>
                     <Row>
                         <Col xl={2} lg={2} md={2} sm={4} xs={6}>
-                            <Link to="/product-details">
+                            <Link className="product-link" to="/product-details">
                                 <Card className={'image-box'}>
                                     <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
                                     <Card.Body className={'text-center'}>
@@ -28,7 +28,7 @@ class FeaturedProject extends Component {
                             </Link>
                         </Col>
                         <Col xl={2} lg={2} md={2} sm={4} xs={6}>
-                            <Link to="/product-details">
+                            <Link className="product-link" to="/product-details">
                                 <Card className={'image-box'}>
                                     <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
                                     <Card.Body className={'text-center'}>
@@ -43,7 +43,7 @@ class FeaturedProject extends Component {
                             </Link>
                         </Col>
                         <Col xl={2} lg={2} md={2} sm={4} xs={6}>
-                            <Link to="/product-details">
+                            <Link className="product-link" to="/product-details">
                                 <Card className={'image-box'}>
                                     <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
                                     <Card.Body className={'text-center'}>
@@ -58,7 +58,7 @@ class FeaturedProject extends Component {
                             </Link>
                         </Col>
                         <Col xl={2} lg={2} md={2} sm={4} xs={6}>
-                            <Link to="/product-details">
+                            <Link className="product-link" to="/product-details">
                                 <Card className={'image-box'}>
                                     <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
                                     <Card.Body className={'text-center'}>
@@ -73,7 +73,7 @@ class FeaturedProject extends Component {
                             </Link>
                         </Col>
                         <Col xl={2} lg={2} md={2} sm={4} xs={6}>
-                            <Link to="/product-details">
+                            <Link className="product-link" to="/product-details">
                                 <Card className={'image-box'}>
                                     <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
                                     <Card.Body className={'text-center'}>
@@ -88,7 +88,7 @@ class FeaturedProject extends Component {
                             </Link>
                         </Col>
                         <Col xl={2} lg={2} md={2} sm={4} xs={6}>
-                            <Link to="/product-details">
+                            <Link className="product-link" to="/product-details">
                                 <Card className={'image-box'}>
                                     <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
                                     <Card.Body className={'text-center'}>

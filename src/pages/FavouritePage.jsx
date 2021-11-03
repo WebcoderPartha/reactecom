@@ -2,12 +2,11 @@ import React, {Component, Fragment} from 'react';
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import ProductDetails from "../components/ProductDetails/ProductDetails";
-import ReletedProducts from "../components/ProductDetails/ReletedProducts";
+import Favourite from "../components/Favourite/Favourite";
 
-class ProductDetailsPage extends Component {
+class FavouritePage extends Component {
     componentDidMount() {
-        window.scroll(0,0)
+        window.scroll(0, 0)
     }
 
     render() {
@@ -19,12 +18,11 @@ class ProductDetailsPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <ProductDetails />
-                <ReletedProducts />
+                <Favourite />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default ProductDetailsPage;
+export default FavouritePage;

@@ -8,10 +8,18 @@ import HeaderMobile from "../components/common/HeaderMobile";
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HomeTopMobile from "../components/home/HomeTopMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
+import axios from "axios";
+import AppUrl from "../api/AppUrl";
 
 class HomePage extends Component {
     componentDidMount() {
-        window.scroll(0,0)
+        window.scroll(0,0);
+        this.getVisitorInfo();
+    }
+
+
+    getVisitorInfo = () => {
+        axios.get(AppUrl.VisitorData).then().catch();
     }
 
     render() {

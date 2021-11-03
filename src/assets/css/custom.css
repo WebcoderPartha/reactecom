@@ -12,3 +12,8 @@
 @import "responsive.css";
 @import "onboard.css";
 @import "productDetails.css";
+@import "cartList.css";
+
+.product-link{
+    text-decoration: none;
+}

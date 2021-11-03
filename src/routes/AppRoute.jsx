@@ -4,6 +4,9 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import ContactPage from "../pages/ContactPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
+import NotificationPage from "../pages/NotificationPage";
+import FavouritePage from "../pages/FavouritePage";
+import CartPage from "../pages/CartPage";
 
 class AppRoute extends Component {
     render() {
@@ -14,6 +17,9 @@ class AppRoute extends Component {
                     <Route exac path="/login" component={LoginPage} />
                     <Route exac path="/contact" component={ContactPage} />
                     <Route exac path="/product-details" component={ProductDetailsPage} />
+                    <Route exac path="/notifications" component={NotificationPage} />
+                    <Route exac path="/favourite" component={FavouritePage} />
+                    <Route exac path="/cart" component={CartPage} />
                 </Switch>
             </Fragment>
         );
