@@ -3,24 +3,24 @@ import React, {Component} from 'react';
 class MegaMenuMobile extends Component {
     constructor() {
         super();
-        this.megaMenu = this.megaMenu.bind(this);
+        this.MegaMenu = this.MegaMenu.bind(this);
     }
-
     componentDidMount() {
-        this.megaMenu();
+        this.MegaMenu()
     }
-    megaMenu = () => {
-        var acc = document.getElementsByClassName('accordion');
+    
+    MegaMenu(){
+        var acc = document.getElementsByClassName("accordionMobile");
         var accNum = acc.length;
         var i;
-        for (i=0;i < accNum; i++){
-            acc[i].addEventListener('click', function (){
+        for(i=0;i<accNum;i++){
+            acc[i].addEventListener("click",function (){
                 this.classList.toggle("active");
                 var panel = this.nextElementSibling;
-                if (panel.style.maxHeight){
+                if(panel.style.maxHeight){
                     panel.style.maxHeight = null;
                 }else{
-                    panel.style.maxHeight = panel.scrollHeight+"px"
+                    panel.style.maxHeight= panel.scrollHeight+ "px"
                 }
             })
         }

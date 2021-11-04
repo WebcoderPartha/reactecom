@@ -8,27 +8,26 @@ class CompanyProfile extends Component {
     constructor() {
         super();
         this.state = {
-            company_page: ''
+            company_page: '',
+            loadingDiv: '',
+            mainDiv: 'd-none'
         }
     }
     componentDidMount() {
 
-        if (sessionStorage.getItem('company_page') == null){
-            axios.get(AppUrl.SiteInfo).then(res => {
-                if (res.status === 200){
-                    this.setState({
-                        company_page:res.data.company_page
-                    })
-                    sessionStorage.setItem('company_page', res.data.company_page);
-                }
-            }).catch(error => {
-                console.log(error)
-            })
-        }else{
-            this.setState({
-                company_page:sessionStorage.getItem('company_page')
-            })
-        }
+        axios.get(AppUrl.SiteInfo).then(res => {
+            if (res.status === 200){
+                this.setState({
+                    company_page:res.data.company_page,
+                    loadingDiv: 'd-none',
+                    mainDiv: ''
+                })
+
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+
 
     }
 
@@ -38,7 +37,22 @@ class CompanyProfile extends Component {
                 <Container>
                     <Row className="p-2">
                         <Col className="shadow-sm bg-white mt-2" md={12} lg={12} sm={12} xs={12}>
-                            <div className="section-title-contact">
+                            <div className={this.state.loadingDiv+" ph-item"}>
+                                <div className="ph-col-12">
+                                    <div className="ph-row">
+                                        <div className="ph-col-4 big"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={this.state.mainDiv+" section-title-contact"}>
                                 {parse(this.state.company_page)}
                             </div>
 

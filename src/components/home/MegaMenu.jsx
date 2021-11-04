@@ -5,10 +5,10 @@ class MegaMenu extends Component {
         super();
         this.MegaMenu = this.MegaMenu.bind(this);
     }
-
     componentDidMount() {
-        this.MegaMenu();
+        this.MegaMenu()
     }
+
     MegaMenu(){
         var acc = document.getElementsByClassName("accordion");
         var accNum = acc.length;
@@ -30,7 +30,7 @@ class MegaMenu extends Component {
         return (
             <div className="accordionMenuDiv">
                 <div className="accordionMenuDivInside">
-                    <button onClick={this.MegaMenu} className="accordion">
+                    <button  className="accordion">
                         <img className="accordionMenuIcon" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
                     </button>
                     <div className="panel">
@@ -39,7 +39,7 @@ class MegaMenu extends Component {
                             <li><a href=" " className="accordionItem"> Mens Tshirts</a></li>
                         </ul>
                     </div>
-                    <button onClick={this.MegaMenu} className="accordion">
+                    <button className="accordion">
                         <img className="accordionMenuIcon" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
                     </button>
                     <div className="panel">
@@ -48,7 +48,7 @@ class MegaMenu extends Component {
                             <li><a href=" " className="accordionItem"> Mens Tshirts</a></li>
                         </ul>
                     </div>
-                    <button onClick={this.MegaMenu}  className="accordion">
+                    <button className="accordion">
                         <img className="accordionMenuIcon" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
                     </button>
                     <div className="panel">
@@ -57,7 +57,7 @@ class MegaMenu extends Component {
                             <li><a href=" "className="accordionItem"> Mens Tshirts</a></li>
                         </ul>
                     </div>
-                    <button onClick={this.MegaMenu}  className="accordion">
+                    <button className="accordion">
                         <img className="accordionMenuIcon" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
                     </button>
                     <div className="panel">
@@ -66,7 +66,7 @@ class MegaMenu extends Component {
                             <li><a href=" " className="accordionItem"> Mens Tshirts</a></li>
                         </ul>
                     </div>
-                    <button onClick={this.MegaMenu}  className="accordion">
+                    <button  className="accordion">
                         <img className="accordionMenuIcon" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
                     </button>
                     <div className="panel">

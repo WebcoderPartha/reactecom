@@ -22,7 +22,6 @@ class Refund extends Component {
                     loadingDiv: 'd-none',
                     mainDiv: '',
                 });
-                sessionStorage.setItem('refund_page', res.data.refund_page);
             }
         }).catch(error => {
             console.log(error)

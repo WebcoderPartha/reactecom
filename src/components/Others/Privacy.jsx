@@ -8,27 +8,25 @@ class Privacy extends Component {
     constructor() {
         super();
         this.state = {
-            privacy_page: ''
+            privacy_page: '',
+            loaderDiv: '',
+            mainDiv: 'd-none'
         }
     }
     componentDidMount() {
 
-        if (sessionStorage.getItem('privacy_page') == null){
-            axios.get(AppUrl.SiteInfo).then(res => {
-                if (res.status === 200){
-                    this.setState({
-                        privacy_page:res.data.privacy_page
-                    });
-                    sessionStorage.setItem('privacy_page', res.data.privacy_page);
-                }
-            }).catch(error => {
-                console.log(error)
-            })
-        }else{
-            this.setState({
-                privacy_page:sessionStorage.getItem('privacy_page')
-            });
-        }
+        axios.get(AppUrl.SiteInfo).then(res => {
+            if (res.status === 200){
+                this.setState({
+                    privacy_page:res.data.privacy_page,
+                    loaderDiv: 'd-none',
+                    mainDiv: ''
+                });
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+
 
     }
     render() {
@@ -37,7 +35,22 @@ class Privacy extends Component {
                 <Container>
                     <Row className="p-2">
                         <Col className="shadow-sm bg-white mt-2" md={12} lg={12} sm={12} xs={12}>
-                            <div className="section-title-contact">
+                            <div className={this.state.loaderDiv+" ph-item"}>
+                                <div className="ph-col-12">
+                                    <div className="ph-row">
+                                        <div className="ph-col-4 big"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={this.state.mainDiv+" section-title-contact"}>
                                 {parse(this.state.privacy_page)}
                             </div>
                         </Col>
