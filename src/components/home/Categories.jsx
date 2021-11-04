@@ -1,7 +1,46 @@
 import React, {Component, Fragment} from 'react';
 import {Col, Container, Row, Card} from "react-bootstrap";
+import axios from "axios";
+import AppUrl from "../../api/AppUrl";
+import {Link} from "react-router-dom";
 class Categories extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            Categories: [],
+            loadingDiv: '',
+        }
+    }
+    componentDidMount() {
+        axios.get(AppUrl.AllCategory).then(res => {
+            this.setState({
+                Categories:res.data,
+                loadingDiv: 'd-none'
+            })
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+
     render() {
+
+        const CatList = this.state.Categories;
+        const MyView = CatList.map((category, idx) => {
+            return (
+                <Col key={idx.toString()} xl={2} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
+                    <Link to="/" className="product-link">
+                        <Card>
+                            <Card.Img className={'center'} src={category.category_image}  alt=""/>
+                            <Card.Body className={'text-center'}>
+                                <h2 className={'category-name'}>{category.category_name}</h2>
+                            </Card.Body>
+                        </Card>
+                    </Link>
+                </Col>
+            )
+        })
+
         return (
             <Fragment>
                 <Container>
@@ -9,106 +48,69 @@ class Categories extends Component {
                         <h2>CATEGORIES</h2>
                         <p>Some of our exclusive categories, You may like.</p>
                     </div>
-
-
                     <Row>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
+                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
+                            <div className="ph-item d-block">
+                                <div className="ph-col-2">
+                                    <div className="ph-avatar"></div>
+                                    <div className="ph-row">
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
+                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
+                            <div className="ph-item d-block">
+                                <div className="ph-col-2">
+                                    <div className="ph-avatar"></div>
+                                    <div className="ph-row">
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
+                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
+                            <div className="ph-item d-block">
+                                <div className="ph-col-2">
+                                    <div className="ph-avatar"></div>
+                                    <div className="ph-row">
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
+                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
+                            <div className="ph-item d-block">
+                                <div className="ph-col-2">
+                                    <div className="ph-avatar"></div>
+                                    <div className="ph-row">
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
+                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
+                            <div className="ph-item d-block">
+                                <div className="ph-col-2">
+                                    <div className="ph-avatar"></div>
+                                    <div className="ph-row">
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col xl={1} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                            <Card className={'w-100 h-100'}>
-                                <Card.Img className={'center'} src="https://rukminim1.flixcart.com/flap/128/128/image/3450e4be3b9d6d3b.jpg?q=100" />
-                                <Card.Body className={'text-center'}>
-                                    <h2 className={'category-name'}>Mobile</h2>
-                                </Card.Body>
-                            </Card>
+                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
+                            <div className="ph-item d-block">
+                                <div className="ph-col-2">
+                                    <div className="ph-avatar"></div>
+                                    <div className="ph-row">
+                                        <div className="ph-col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
 
+                        {MyView}
                     </Row>
 
                 </Container>

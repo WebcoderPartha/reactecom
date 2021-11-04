@@ -35,7 +35,8 @@ class FooterDesktop extends Component {
             }
         }).catch(error => {
             console.log(error)
-        })
+        });
+
     }
 
     render() {

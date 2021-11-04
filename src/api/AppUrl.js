@@ -4,7 +4,8 @@ class AppUrl {
 
 	static VisitorData = this.BaseUrl + "/getvisitor";
 	static ContactSend = this.BaseUrl + "/sendmessage";
-	static SiteInfo = this.BaseUrl + "/getsiteinfo"
+	static SiteInfo = this.BaseUrl + "/getsiteinfo";
+	static AllCategory = this.BaseUrl + "/getallcategory";
 
 
 }

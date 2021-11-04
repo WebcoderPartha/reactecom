@@ -3,16 +3,28 @@ import {Button, Col, Container, Navbar, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 import MegaMenuMobile from "../home/MegaMenuMobile";
+import axios from "axios";
+import AppUrl from "../../api/AppUrl";
 
 class HeaderMobile extends Component {
     constructor() {
         super();
         this.state = {
             sideNavState: 'sideNavClose',
-            contentOverState: 'ContentOverlayClose'
+            contentOverState: 'ContentOverlayClose',
+            MenuData: []
         }
     }
 
+    componentDidMount() {
+        axios.get(AppUrl.AllCategory).then(res => {
+            this.setState({
+                MenuData:res.data
+            })
+        }).catch(error => {
+            console.log(error);
+        })
+    }
     menuClickHandler = () => {
         this.sideMenuHandler()
     }
@@ -64,7 +76,7 @@ class HeaderMobile extends Component {
 
                         </Container>
                         <div className={this.state.sideNavState}>
-                            <MegaMenuMobile />
+                            <MegaMenuMobile data={this.state.MenuData} />
                         </div>
                         <div onClick={this.contentOverHandler} className={this.state.contentOverState}>
 

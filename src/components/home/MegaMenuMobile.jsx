@@ -1,65 +1,66 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 class MegaMenuMobile extends Component {
-    constructor() {
-        super();
-        this.MegaMenu = this.MegaMenu.bind(this);
-    }
-    componentDidMount() {
-        this.MegaMenu()
-    }
+    // constructor(props) {
+    //     super();
+    //     // this.MegaMenu = this.MegaMenu.bind(this);
+    // }
+    // componentDidMount() {
+    //     this.MegaMenu()
+    // }
     
-    MegaMenu(){
-        var acc = document.getElementsByClassName("accordionMobile");
-        var accNum = acc.length;
-        var i;
-        for(i=0;i<accNum;i++){
-            acc[i].addEventListener("click",function (){
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if(panel.style.maxHeight){
-                    panel.style.maxHeight = null;
-                }else{
-                    panel.style.maxHeight= panel.scrollHeight+ "px"
-                }
-            })
+    // MegaMenu(){
+    //     var acc = document.getElementsByClassName("accordionMobile");
+    //     var accNum = acc.length;
+    //     var i;
+    //     for(i=0;i<accNum;i++){
+    //         acc[i].addEventListener("click",function (){
+    //             this.classList.toggle("active");
+    //             var panel = this.nextElementSibling;
+    //             if(panel.style.maxHeight){
+    //                 panel.style.maxHeight = null;
+    //             }else{
+    //                 panel.style.maxHeight= panel.scrollHeight+ "px"
+    //             }
+    //         })
+    //     }
+    // }
+    mobileMenuHandler = (event) => {
+        event.target.classList.toggle("active");
+        let panel = event.target.nextElementSibling;
+        if(panel.style.maxHeight){
+            panel.style.maxHeight = null;
+        }else{
+            panel.style.maxHeight= panel.scrollHeight+ "px"
         }
     }
 
     render() {
+        const CatList = this.props.data;
+        const MyView = CatList.map((category, idx) => {
+            return (
+                <div key={idx.toString()}>
+                    <button className="accordionMobile" onClick={this.mobileMenuHandler}>
+                        <img className="accordionMenuIconMobile" src={category.category_image} alt=""/> {category.category_name}
+                    </button>
+                    <div className="panelMobile">
+                        <ul>
+                            {(category.subcategory).map((subcat,idx) => {
+                                return (
+                                    <li key={idx.toString()}><Link to="/" className="accordionItemMobile"> {subcat.subcategory_name}</Link></li>
+                                )
+                            })}
+
+                        </ul>
+                    </div>
+                </div>
+            )
+        })
         return (
             <div className="accordionMenuDiv">
                 <div className="accordionMenuDivInside">
-                    <button className="accordionMobile">
-                        <img className="accordionMenuIconMobile" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
-                    </button>
-                    <div className="panelMobile">
-                        <ul>
-                            <li><a href=" " className="accordionItemMobile"> Mens Tshirts</a></li>
-                            <li><a href=" " className="accordionItemMobile"> Mens Tshirts</a></li>
-                        </ul>
-                    </div>
-                    <button className="accordionMobile">
-                        <img className="accordionMenuIconMobile" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
-                    </button>
-                    <div className="panelMobile">
-                        <ul>
-                            <li><a href=" " className="accordionItemMobile"> Mens Tshirts</a></li>
-                            <li><a href=" " className="accordionItemMobile"> Mens Tshirts</a></li>
-                        </ul>
-                    </div>
-                    <button className="accordionMobile">
-                        <img className="accordionMenuIconMobile" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/2x/external-image-multimedia-kiranshastry-lineal-color-kiranshastry-1.png" alt=""/> Men's Clothing
-                    </button>
-                    <div className="panelMobile">
-                        <ul>
-                            <li><a href=" " className="accordionItemMobile"> Mens Tshirts</a></li>
-                            <li><a href=" " className="accordionItemMobile"> Mens Tshirts</a></li>
-                        </ul>
-                    </div>
-
-
-
+                    {MyView}
                 </div>
             </div>
         );
