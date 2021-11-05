@@ -1,59 +1,125 @@
 import React, {Component, Fragment} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
-import product1 from "../../assets/images/product/product1.png"
-import product2 from "../../assets/images/product/product2.png"
-import product3 from "../../assets/images/product/product3.png"
-import product4 from "../../assets/images/product/product4.png"
+import parse from 'html-react-parser';
+
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
 import ReactDOM from 'react-dom'
+import {Link} from "react-router-dom";
 
 class ProductDetails extends Component {
     constructor(props) {
         super();
         this.state = {
             product: '',
-            productSlug: props.productSlug
+            category:'',
+            subcategory: '',
+            short: '',
+            long: '',
+            sizeClass: '',
+            productSlug: props.productSlug,
+            quantity: 1
         }
     }
     componentDidMount() {
         axios.get(AppUrl.singleProductPage(this.state.productSlug)).then(res => {
             if (res.status === 200){
                 this.setState({
-                    product:res.data
+                    product:res.data,
+                    short:res.data.short_desc,
+                    long:res.data.long_desc,
+                    category:res.data.category,
+                    subcategory: res.data.subcategory
                 })
             }
         }).catch(error => {
             console.log(error)
-        })
+        });
     }
+
+
     imgOnClick = (event) => {
         // document.getElementById('bigImage').src = event.target.src
         let imgSrc = event.target.getAttribute('src');
         let previewImg = document.getElementById('bigImage');
         ReactDOM.findDOMNode(previewImg).setAttribute('src', imgSrc);
     }
+    discountPrice(regular, discount){
+        if (discount){
+            return (
+                <div>
+                    <div className="Product-price-card d-inline ">Reguler Price <del>Tk- {regular}</del></div>
+                    <div className="Product-price-card d-inline ">New Price Tk- <b>{discount}</b>
+                </div>
+                </div>
+
+            )
+        }
+    }
+
+    incrementQty = () =>{
+        let qty = this.state.quantity + 1;
+        this.setState({
+            quantity:qty
+        })
+    }
+    decrementQty = () => {
+        let qty = this.state.quantity - 1;
+        this.setState({
+            quantity: qty
+        })
+    }
+
     render() {
+        let product1 = this.state.product.product_image;
+        let product2 = this.state.product.product_image2;
+        let product3 = this.state.product.product_image3;
+        let product4 = this.state.product.product_image4;
+        let discount_price = this.state.product.discount_price;
+        let regular_price = this.state.product.regular_price;
+        let color = this.state.product.color;
+        let size = this.state.product.size;
+        let subcategory = this.state.subcategory.subcategory_name;
+        let category = this.state.category.category_name;
+
+        // Same working Split
+        // let colorShow = (this.state.product.color)?.split(',').map((color, idx)=>{
+        //     return <option value={color}>{color}</option>
+        // });
+        // Same working Split
+        let colorShow = color?.split(',').map((color, idx)=>{
+           return <option key={idx.toString()} value={color}>{color}</option>
+        });
+
+        // Size
+        // Same working Split
+        // let sizeShow = (this.state.product.size)?.split(',').map((size, idx)=>{
+        //     return <option value={size}>{size}</option>
+        // })
+        let sizeShow = size?.split(',').map((size, idx) => {
+           return <option key={idx.toString()} value={size}>{size}</option>
+        });
+
         return (
             <Fragment>
                 <Container  className="BetweenTwoSection">
                     <Row className="p-2">
                         <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
                             <Row>
-                                <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-                                    <img alt="" id="bigImage" className="w-100" src={product1} />
+                                <Col className="p-3 text-center" md={6} lg={6} sm={12} xs={12}>
+                                    <img alt="" id="bigImage" className="singleProductBigImage" src={product1} />
                                     <Container  className="my-3">
                                         <Row>
-                                            <Col className="p-0 m-0"  md={3} lg={3} sm={3} xs={3}>
+                                            <Col className="p-0 m-0 text-center"  md={3} lg={3} sm={3} xs={3}>
                                                 <img onClick={this.imgOnClick} alt="" className="w-100 imageCursor" src={product1} />
                                             </Col>
-                                            <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
+                                            <Col className="p-0 m-0 text-center" md={3} lg={3} sm={3} xs={3}>
                                                 <img onClick={this.imgOnClick}  alt="" className="w-100 imageCursor" src={product2} />
                                             </Col>
-                                            <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
+                                            <Col className="p-0 m-0 text-center" md={3} lg={3} sm={3} xs={3}>
                                                 <img onClick={this.imgOnClick}  alt="" className="w-100 imageCursor" src={product3} />
                                             </Col>
-                                            <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
+                                            <Col className="p-0 m-0 text-center" md={3} lg={3} sm={3} xs={3}>
                                                 <img onClick={this.imgOnClick}  alt="" className="w-100 imageCursor" src={product4} />
                                             </Col>
                                         </Row>
@@ -61,60 +127,71 @@ class ProductDetails extends Component {
                                 </Col>
                                 <Col className="p-3 " md={6} lg={6} sm={12} xs={12}>
                                     <h5 className="Product-Name">{this.state.product.product_name}</h5>
-                                    <h6 className="section-sub-title">Some Of Our Exclusive Collection, You May Like Some Of Our Exclusive Collectio</h6>
-                                    <div className="input-group">
-                                        <div className="Product-price-card d-inline ">Reguler Price 200</div>
-                                        <div className="Product-price-card d-inline ">50% Discount</div>
-                                        <div className="Product-price-card d-inline ">New Price 100</div>
-                                    </div>
-                                    <h6 className="mt-2">Choose Color</h6>
-                                    <div className="input-group">
-                                        <div className="form-check mx-1">
-                                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" />
-                                            <label className="form-check-label" htmlFor="exampleRadios1">Black</label>
-                                        </div>
-                                        <div className="form-check mx-1">
-                                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" />
-                                            <label className="form-check-label" htmlFor="exampleRadios1">Green</label>
-                                        </div>
-                                        <div className="form-check mx-1">
-                                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" />
-                                            <label className="form-check-label" htmlFor="exampleRadios1">Red</label>
-                                        </div>
-                                    </div>
+                                    <div className="section-sub-title">{this.state.short ? parse(this.state.short) : ''}</div>
+                                    <div className="input-group mt-3 mb-3">
 
-                                    <h6 className="mt-2">Choose Size</h6>
-                                    <div className="input-group">
-                                        <div className="form-check mx-1">
-                                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" />
-                                            <label className="form-check-label" htmlFor="exampleRadios1">X</label>
-                                        </div>
-                                        <div className="form-check mx-1">
-                                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" />
-                                            <label className="form-check-label" htmlFor="exampleRadios1">XX</label>
-                                        </div>
-                                        <div className="form-check mx-1">
-                                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" />
-                                            <label className="form-check-label" htmlFor="exampleRadios1">XXXX</label>
-                                        </div>
-                                    </div>
+                                        {this.discountPrice(regular_price,discount_price)}
 
-                                    <h6 className="mt-2">Quantity</h6>
-                                    <input  className="form-control text-center w-50" type="number" />
 
-                                    <div className="input-group mt-3">
-                                        <button className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  Add To Cart</button>
-                                        <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
-                                        <button className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
                                     </div>
+                                    <div className="input-group mt-3 mb-3">
+                                        <Link to={"/category/"+this.state.category.slug}><i className="fa fa-tag mt-1"></i> {category}</Link> &nbsp; &nbsp; <Link to={"/category/"+this.state.category.slug+"/"+this.state.subcategory.slug} ><i className="fa fa-tag mt-1"></i> {subcategory}</Link>
+                                    </div>
+                                    <form>
+                                        <div className="row">
+                                            {color === 'NA' ? '' : (
+                                                <div className="form-group col-6">
+                                                    <h6 className="mt-2">Color {this.state.colorClass}</h6>
+                                                    <select className="form-control">
+                                                        <option>Choose Color</option>
+                                                        {colorShow}
+                                                    </select>
+                                                </div>
+                                            )}
+
+                                            {size === 'NA' ? '' : (
+                                                <div className="form-group col-6">
+                                                    <h6 className="mt-2">Size</h6>
+                                                    <select className="form-control">
+                                                        <option >Choose Size</option>
+                                                        {sizeShow}
+                                                    </select>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="form-group">
+                                            <h6 className="mt-2">Quantity {this.state.quantity}</h6>
+                                            <div className="row quantity">
+                                                <div className="col-4">
+                                                    {this.state.quantity === 1 ? (
+                                                        <div onClick={this.decrementQty} className="btn btn-danger disabled">-</div>
+                                                    ) : (
+                                                        <div onClick={this.decrementQty} className="btn btn-danger">-</div>
+                                                    )}
+
+                                                </div>
+                                                <div className="col-4">
+                                                    <input value={this.state.quantity} onChange={(e) => {this.setState({quantity:e.target.value})}} className="form-control" type="text"/>
+                                                </div>
+                                                <div className="col-4">
+                                                    <div onClick={this.incrementQty} className="btn-primary btn">+</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="input-group mt-3">
+                                            <button className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  Add To Cart</button>
+                                            <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
+                                            <button className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
+                                        </div>
+                                    </form>
                                 </Col>
                             </Row>
 
                             <Row>
                                 <Col className="" md={6} lg={6} sm={12} xs={12}>
                                     <h6 className="mt-2">DETAILS</h6>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation</p>
+                                    {this.state.long ? parse(this.state.long) : ''}
                                 </Col>
 
                                 <Col className="" md={6} lg={6} sm={12} xs={12}>

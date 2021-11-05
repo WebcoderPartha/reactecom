@@ -26,3 +26,9 @@ body{
 .imageCursor{
     cursor: pointer;
 }
+.singleProductBigImage{
+    width: 30% !important;
+}
+.row.quantity .col-4 {
+    width: 12%;
+}
