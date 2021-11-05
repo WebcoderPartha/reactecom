@@ -23,3 +23,6 @@ html{
 body{
     min-height: 0 !important;
 }
+.imageCursor{
+    cursor: pointer;
+}

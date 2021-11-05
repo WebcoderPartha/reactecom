@@ -6,6 +6,7 @@ import product3 from "../../assets/images/product/product3.png"
 import product4 from "../../assets/images/product/product4.png"
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
+import ReactDOM from 'react-dom'
 
 class ProductDetails extends Component {
     constructor(props) {
@@ -26,7 +27,12 @@ class ProductDetails extends Component {
             console.log(error)
         })
     }
-
+    imgOnClick = (event) => {
+        // document.getElementById('bigImage').src = event.target.src
+        let imgSrc = event.target.getAttribute('src');
+        let previewImg = document.getElementById('bigImage');
+        ReactDOM.findDOMNode(previewImg).setAttribute('src', imgSrc);
+    }
     render() {
         return (
             <Fragment>
@@ -35,20 +41,20 @@ class ProductDetails extends Component {
                         <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
                             <Row>
                                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-                                    <img alt="" className="w-100" src={product1} />
+                                    <img alt="" id="bigImage" className="w-100" src={product1} />
                                     <Container  className="my-3">
                                         <Row>
                                             <Col className="p-0 m-0"  md={3} lg={3} sm={3} xs={3}>
-                                                <img alt="" className="w-100" src={product1} />
+                                                <img onClick={this.imgOnClick} alt="" className="w-100 imageCursor" src={product1} />
                                             </Col>
                                             <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                                                <img alt="" className="w-100" src={product2} />
+                                                <img onClick={this.imgOnClick}  alt="" className="w-100 imageCursor" src={product2} />
                                             </Col>
                                             <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                                                <img alt="" className="w-100" src={product3} />
+                                                <img onClick={this.imgOnClick}  alt="" className="w-100 imageCursor" src={product3} />
                                             </Col>
                                             <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                                                <img alt="" className="w-100" src={product4} />
+                                                <img onClick={this.imgOnClick}  alt="" className="w-100 imageCursor" src={product4} />
                                             </Col>
                                         </Row>
                                     </Container>
