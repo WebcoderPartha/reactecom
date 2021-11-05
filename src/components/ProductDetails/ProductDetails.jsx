@@ -4,8 +4,29 @@ import product1 from "../../assets/images/product/product1.png"
 import product2 from "../../assets/images/product/product2.png"
 import product3 from "../../assets/images/product/product3.png"
 import product4 from "../../assets/images/product/product4.png"
+import axios from "axios";
+import AppUrl from "../../api/AppUrl";
 
 class ProductDetails extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            product: '',
+            productSlug: props.productSlug
+        }
+    }
+    componentDidMount() {
+        axios.get(AppUrl.singleProductPage(this.state.productSlug)).then(res => {
+            if (res.status === 200){
+                this.setState({
+                    product:res.data
+                })
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     render() {
         return (
             <Fragment>
@@ -33,7 +54,7 @@ class ProductDetails extends Component {
                                     </Container>
                                 </Col>
                                 <Col className="p-3 " md={6} lg={6} sm={12} xs={12}>
-                                    <h5 className="Product-Name">ASUS TUF A15 FA506IU Ryzen 7 4800H GTX</h5>
+                                    <h5 className="Product-Name">{this.state.product.product_name}</h5>
                                     <h6 className="section-sub-title">Some Of Our Exclusive Collection, You May Like Some Of Our Exclusive Collectio</h6>
                                     <div className="input-group">
                                         <div className="Product-price-card d-inline ">Reguler Price 200</div>

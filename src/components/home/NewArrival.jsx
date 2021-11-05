@@ -4,14 +4,33 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import AppUrl from "../../api/AppUrl";
 
 class NewArrival extends Component {
     constructor(props) {
         super(props);
         this.previous = this.previous.bind(this);
         this.next = this.next.bind(this);
+        this.state = {
+            newarrival: [],
+            loadingDiv: '',
+            mainDiv: 'd-none'
+        }
     }
 
+    componentDidMount() {
+        axios.get(AppUrl.getRemarkProudcts('NEW')).then(res => {
+            if (res.status === 200){
+                this.setState({
+                    newarrival:res.data,
+                    loadingDiv: 'd-none'
+                });
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
     previous = () => {
         this.slider.slickPrev();
     }
@@ -57,6 +76,48 @@ class NewArrival extends Component {
             ]
         };
 
+        const newarrival = this.state.newarrival;
+        const MyView = newarrival.map((newarrival, idx) => {
+            if (newarrival.discount_price === null){
+                return (
+                    <div key={idx.toString()}>
+                        <Link className="product-link" to={'/products/'+newarrival.slug}>
+                            <Card className={'image-box'}>
+                                <Card.Img className={'center'} src={newarrival.product_image} alt="" />
+                                <Card.Body className={'text-center'}>
+                                    <Card.Text className={'product-name-on-card'}>
+                                        {newarrival.product_name}
+                                    </Card.Text>
+                                    <Card.Text className={'product-price-on-card'}>
+                                        ${newarrival.regular_price}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Link>
+                    </div>
+                )
+            }else{
+                return (
+                    <div key={idx.toString()}>
+                        <Link className="product-link" to={'/products/'+newarrival.slug}>
+                            <Card className={'image-box'}>
+                                <Card.Img className={'center'} src={newarrival.product_image} alt="" />
+                                <Card.Body className={'text-center'}>
+                                    <Card.Text className={'product-name-on-card'}>
+                                        {newarrival.product_name}
+                                    </Card.Text>
+                                    <Card.Text className={'product-price-on-card'}>
+                                        <span className="text-primary"><del><small>$ {newarrival.regular_price}</small></del></span> <br/>
+                                        ${newarrival.discount_price}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Link>
+                    </div>
+                )
+            }
+        })
+
         return (
             <Fragment>
                 <Container>
@@ -70,97 +131,7 @@ class NewArrival extends Component {
                     </div>
                     <Row className={'text-center'}>
                         <Slider ref={c => {this.slider = c}} {...settings}>
-                            <div>
-                                <Link className="product-link" to="/product-details">
-                                    <Card className={'image-box'}>
-                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                        <Card.Body className={'text-center'}>
-                                            <Card.Text className={'product-name-on-card'}>
-                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                            </Card.Text>
-                                            <Card.Text className={'product-price-on-card'}>
-                                                $55
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link className="product-link" to="/product-details">
-                                    <Card className={'image-box'}>
-                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                        <Card.Body className={'text-center'}>
-                                            <Card.Text className={'product-name-on-card'}>
-                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                            </Card.Text>
-                                            <Card.Text className={'product-price-on-card'}>
-                                                $55
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link className="product-link" to="/product-details">
-                                    <Card className={'image-box'}>
-                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                        <Card.Body className={'text-center'}>
-                                            <Card.Text className={'product-name-on-card'}>
-                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                            </Card.Text>
-                                            <Card.Text className={'product-price-on-card'}>
-                                                $55
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link className="product-link" to="/product-details">
-                                    <Card className={'image-box'}>
-                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                        <Card.Body className={'text-center'}>
-                                            <Card.Text className={'product-name-on-card'}>
-                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                            </Card.Text>
-                                            <Card.Text className={'product-price-on-card'}>
-                                                $55
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link className="product-link" to="/product-details">
-                                    <Card className={'image-box'}>
-                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                        <Card.Body className={'text-center'}>
-                                            <Card.Text className={'product-name-on-card'}>
-                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                            </Card.Text>
-                                            <Card.Text className={'product-price-on-card'}>
-                                                $55
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link className="product-link" to="/product-details">
-                                    <Card className={'image-box'}>
-                                        <Card.Img className={'center'} src="https://rukminim1.flixcart.com/image/416/416/ku04o7k0/mobile/p/8/u/9i-sport-mzb0a5iin-redmi-original-imag785qegs5ghyy.jpeg?q=70" />
-                                        <Card.Body className={'text-center'}>
-                                            <Card.Text className={'product-name-on-card'}>
-                                                REDMI 9i Sport (Carbon Black, 64 GB)  (4 GB RAM)
-                                            </Card.Text>
-                                            <Card.Text className={'product-price-on-card'}>
-                                                $55
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-                            </div>
-
+                            {MyView}
                         </Slider>
                     </Row>
                 </Container>

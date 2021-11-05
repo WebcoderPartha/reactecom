@@ -2,18 +2,19 @@ import React, {Component, Fragment} from 'react';
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import ProductDetails from "../components/ProductDetails/ProductDetails";
-import ReletedProducts from "../components/ProductDetails/ReletedProducts";
+import Subcategory from "../components/Category/Subcategory";
 
-class ProductDetailsPage extends Component {
+class SubcategoryPage extends Component {
     constructor(props) {
         super();
         this.state = {
-            productSlug:props.match.params.product
+            categorySlug: props.match.params.category,
+            subcategorySlug: props.match.params.subcategory,
         }
+
     }
     componentDidMount() {
-        window.scroll(0,0)
+        window.scroll(0,0);
     }
 
     render() {
@@ -25,12 +26,11 @@ class ProductDetailsPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <ProductDetails productSlug={this.state.productSlug} />
-                <ReletedProducts />
+                <Subcategory categorySlug={this.state.categorySlug} subcategorySlug={this.state.subcategorySlug} />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default ProductDetailsPage;
+export default SubcategoryPage;

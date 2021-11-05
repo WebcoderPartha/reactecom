@@ -1,23 +1,25 @@
 import React, {Component, Fragment} from 'react';
-import {Col, Container, Row, Card} from "react-bootstrap";
+import {Card, Col, Container, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
 
-class FeaturedProject extends Component {
-    constructor() {
+class Category extends Component {
+    constructor(props) {
         super();
         this.state = {
-            featured: [],
-            loadingDiv: '',
-            mainDiv: 'd-none'
-        }
+            categoryProducts: [],
+            products: [],
+            categorySlug: props.slug        }
     }
     componentDidMount() {
-        axios.get(AppUrl.getRemarkProudcts('FEATURED')).then(res => {
+        window.scroll(0,0);
+
+        axios.get(AppUrl.getCategoryByAllProduct(this.state.categorySlug)).then(res => {
             if (res.status === 200){
                 this.setState({
-                    featured:res.data
+                    categoryProducts:res.data[0],
+                    products: res.data[0].products
                 });
             }
         }).catch(error => {
@@ -26,20 +28,20 @@ class FeaturedProject extends Component {
     }
 
     render() {
-        const featured = this.state.featured;
-        const MyView = featured.map((featured, idx) => {
-            if (featured.discount_price === null){
+        const products = this.state.products;
+        const MyView = products.map((product, idx) => {
+            if (product.discount_price === null){
                 return (
                     <Col key={idx.toString()} xl={2} lg={2} md={2} sm={4} xs={6}>
-                        <Link className="product-link" to={'/products/'+featured.slug}>
+                        <Link className="product-link" to={'/products/'+product.slug}>
                             <Card className={'image-box'}>
-                                <Card.Img className={'center'} src={featured.product_image} alt="" />
+                                <Card.Img className={'center'} src={product.product_image} alt="" />
                                 <Card.Body className={'text-center'}>
                                     <Card.Text className={'product-name-on-card'}>
-                                        {featured.product_name}
+                                        {product.product_name}
                                     </Card.Text>
                                     <Card.Text className={'product-price-on-card'}>
-                                        ${featured.regular_price}
+                                        ${product.regular_price}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
@@ -49,16 +51,16 @@ class FeaturedProject extends Component {
             }else{
                 return (
                     <Col key={idx.toString()} xl={2} lg={2} md={2} sm={4} xs={6}>
-                        <Link className="product-link" to={'/products/'+featured.slug}>
+                        <Link className="product-link" to={'/products/'+product.slug}>
                             <Card className={'image-box'}>
-                                <Card.Img className={'center'} src={featured.product_image} alt="" />
+                                <Card.Img className={'center'} src={product.product_image} alt="" />
                                 <Card.Body className={'text-center'}>
                                     <Card.Text className={'product-name-on-card'}>
-                                        {featured.product_name}
+                                        {product.product_name}
                                     </Card.Text>
                                     <Card.Text className={'product-price-on-card'}>
-                                        <span className="text-primary"><del><small>$ {featured.regular_price}</small></del></span> <br/>
-                                        ${featured.discount_price}
+                                        <span className="text-primary"><del><small>$ {product.regular_price}</small></del></span> <br/>
+                                        ${product.discount_price}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
@@ -68,11 +70,12 @@ class FeaturedProject extends Component {
             }
 
         })
+
         return (
             <Fragment>
                 <Container>
                     <div className="section-title text-center">
-                        <h2>FEATURED PRODUCT</h2>
+                        <h2>{this.state.categoryProducts.category_name}</h2>
                         <p>Some of our exclusive collection, You may like.</p>
                     </div>
                     <Row>
@@ -81,7 +84,8 @@ class FeaturedProject extends Component {
                 </Container>
             </Fragment>
         );
+
     }
 }
 
-export default FeaturedProject;
+export default Category;

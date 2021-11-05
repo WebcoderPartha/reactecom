@@ -7,6 +7,21 @@ class AppUrl {
 	static SiteInfo = this.BaseUrl + "/getsiteinfo";
 	static AllCategory = this.BaseUrl + "/getallcategory";
 
+	static getRemarkProudcts(remark){
+		return this.BaseUrl+ '/getremarkproduct/'+remark;
+	}
+
+	static getCategoryByAllProduct(category_slug){
+		return this.BaseUrl+'/getcategorybyproduct/'+category_slug;
+	}
+
+	static getSubCategoryByAllProduct(category_slug, subcategory_slug){
+		return this.BaseUrl+'/getproduct/'+category_slug+'/'+subcategory_slug;
+	}
+
+	static singleProductPage(product_slug){
+		return this.BaseUrl+'/getsingleproduct/'+product_slug;
+	}
 
 }
 

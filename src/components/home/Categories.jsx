@@ -29,7 +29,7 @@ class Categories extends Component {
         const MyView = CatList.map((category, idx) => {
             return (
                 <Col key={idx.toString()} xl={2} lg={2} md={3} sm={4} xs={6} className={'text-center'}>
-                    <Link to="/" className="product-link">
+                    <Link to={'/category/'+category.slug} className="product-link">
                         <Card>
                             <Card.Img className={'center'} src={category.category_image}  alt=""/>
                             <Card.Body className={'text-center'}>
