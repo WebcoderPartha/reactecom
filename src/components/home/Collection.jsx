@@ -3,6 +3,7 @@ import {Card, Col, Container, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
+import ProductCollectionLoader from "../../Placeholder/ProductCollectionLoader";
 
 class Collection extends Component {
     constructor() {
@@ -75,6 +76,7 @@ class Collection extends Component {
                         <h2>PRODUCT COLLECTION</h2>
                         <p>Some of our exclusive collection, You may like.</p>
                     </div>
+                    <ProductCollectionLoader loadingDiv={this.state.loadingDiv}/>
                     <Row>
                         {myView}
                     </Row>

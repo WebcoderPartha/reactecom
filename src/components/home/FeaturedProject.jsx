@@ -3,6 +3,7 @@ import {Col, Container, Row, Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
+import FeaturedProductLoader from "../../Placeholder/FeaturedProductLoader";
 
 class FeaturedProject extends Component {
     constructor() {
@@ -17,7 +18,9 @@ class FeaturedProject extends Component {
         axios.get(AppUrl.getRemarkProudcts('FEATURED')).then(res => {
             if (res.status === 200){
                 this.setState({
-                    featured:res.data
+                    featured:res.data,
+                    loadingDiv: 'd-none',
+                    mainDiv: ''
                 });
             }
         }).catch(error => {
@@ -76,6 +79,7 @@ class FeaturedProject extends Component {
                         <p>Some of our exclusive collection, You may like.</p>
                     </div>
                     <Row>
+                        <FeaturedProductLoader loadingDiv={this.state.loadingDiv} />
                         {MyView}
                     </Row>
                 </Container>

@@ -3,6 +3,7 @@ import {Col, Container, Row, Card} from "react-bootstrap";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
 import {Link} from "react-router-dom";
+import CategoryLoader from "../../Placeholder/CategoryLoader";
 class Categories extends Component {
 
     constructor() {
@@ -48,68 +49,8 @@ class Categories extends Component {
                         <h2>CATEGORIES</h2>
                         <p>Some of our exclusive categories, You may like.</p>
                     </div>
+                    <CategoryLoader loadingDiv={this.state.loadingDiv}  />
                     <Row>
-                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
-                            <div className="ph-item d-block">
-                                <div className="ph-col-2">
-                                    <div className="ph-avatar"></div>
-                                    <div className="ph-row">
-                                        <div className="ph-col-12"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
-                            <div className="ph-item d-block">
-                                <div className="ph-col-2">
-                                    <div className="ph-avatar"></div>
-                                    <div className="ph-row">
-                                        <div className="ph-col-12"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
-                            <div className="ph-item d-block">
-                                <div className="ph-col-2">
-                                    <div className="ph-avatar"></div>
-                                    <div className="ph-row">
-                                        <div className="ph-col-12"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
-                            <div className="ph-item d-block">
-                                <div className="ph-col-2">
-                                    <div className="ph-avatar"></div>
-                                    <div className="ph-row">
-                                        <div className="ph-col-12"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
-                            <div className="ph-item d-block">
-                                <div className="ph-col-2">
-                                    <div className="ph-avatar"></div>
-                                    <div className="ph-row">
-                                        <div className="ph-col-12"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col xl={2} lg={2} md={3} sm={4} xs={6} className={ this.state.loadingDiv+' text-center'}>
-                            <div className="ph-item d-block">
-                                <div className="ph-col-2">
-                                    <div className="ph-avatar"></div>
-                                    <div className="ph-row">
-                                        <div className="ph-col-12"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-
                         {MyView}
                     </Row>
 

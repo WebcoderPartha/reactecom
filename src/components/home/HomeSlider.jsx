@@ -4,19 +4,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
+import SliderLoader from "../../Placeholder/SliderLoader";
 
 class HomeSlider extends Component {
     constructor() {
         super();
         this.state = {
-            sliders: []
+            sliders: [],
+            loadingDiv: '',
+            mainDiv: 'd-none'
         }
     }
     componentDidMount() {
         axios.get(AppUrl.Slider).then(res => {
             if (res.status === 200){
                 this.setState({
-                    sliders:res.data
+                    sliders:res.data,
+                    loadingDiv: 'd-none',
+                    mainDiv: ''
                 })
             }
         }).catch(error => {
@@ -73,6 +78,8 @@ class HomeSlider extends Component {
 
         return (
             <div>
+                <SliderLoader loadingDiv={this.state.loadingDiv} />
+
                 <Slider {...settings}>
                     {MyView}
                 </Slider>

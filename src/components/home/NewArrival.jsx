@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
+import NewArrivalLoader from "../../Placeholder/NewArrivalLoader";
 
 class NewArrival extends Component {
     constructor(props) {
@@ -129,6 +130,7 @@ class NewArrival extends Component {
                         </h2>
                         <p>Some of our exclusive collection, You may like.</p>
                     </div>
+                    <NewArrivalLoader loadingDiv={this.state.loadingDiv} />
                     <Row className={'text-center'}>
                         <Slider ref={c => {this.slider = c}} {...settings}>
                             {MyView}
