@@ -2,11 +2,28 @@ import React, {Component} from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import slider1 from '../../assets/images/slider1.jpg';
-import slider2 from '../../assets/images/slider2.jpg';
-import slider3 from '../../assets/images/slider3.jpg';
+import axios from "axios";
+import AppUrl from "../../api/AppUrl";
 
 class HomeSlider extends Component {
+    constructor() {
+        super();
+        this.state = {
+            sliders: []
+        }
+    }
+    componentDidMount() {
+        axios.get(AppUrl.Slider).then(res => {
+            if (res.status === 200){
+                this.setState({
+                    sliders:res.data
+                })
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     render() {
         var settings = {
             dots: true,
@@ -45,18 +62,19 @@ class HomeSlider extends Component {
             ]
         };
 
+        const getSliders = this.state.sliders;
+        const MyView = getSliders.map((slider, idx) => {
+            return (
+                <div key={idx.toString()}>
+                    <img className="slider-img" src={slider.slider_image} alt=""/>
+                </div>
+            )
+        })
+
         return (
             <div>
                 <Slider {...settings}>
-                    <div>
-                        <img className="slider-img" src={slider1} alt=""/>
-                    </div>
-                    <div>
-                        <img className="slider-img" src={slider2} alt=""/>
-                    </div>
-                    <div>
-                        <img className="slider-img" src={slider3} alt=""/>
-                    </div>
+                    {MyView}
                 </Slider>
             </div>
         );

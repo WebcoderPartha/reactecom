@@ -6,6 +6,7 @@ class AppUrl {
 	static ContactSend = this.BaseUrl + "/sendmessage";
 	static SiteInfo = this.BaseUrl + "/getsiteinfo";
 	static AllCategory = this.BaseUrl + "/getallcategory";
+	static Slider = this.BaseUrl + '/getslider';
 
 	static getRemarkProudcts(remark){
 		return this.BaseUrl+ '/getremarkproduct/'+remark;
@@ -22,6 +23,7 @@ class AppUrl {
 	static singleProductPage(product_slug){
 		return this.BaseUrl+'/getsingleproduct/'+product_slug;
 	}
+
 
 }
 

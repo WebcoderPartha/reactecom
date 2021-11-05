@@ -48,7 +48,7 @@ class MegaMenuMobile extends Component {
                         <ul>
                             {(category.subcategory).map((subcat,idx) => {
                                 return (
-                                    <li key={idx.toString()}><Link to="/" className="accordionItemMobile"> {subcat.subcategory_name}</Link></li>
+                                    <li key={idx.toString()}><Link to={'/category/'+category.slug+'/'+subcat.slug} className="accordionItemMobile"> {subcat.subcategory_name}</Link></li>
                                 )
                             })}
 
