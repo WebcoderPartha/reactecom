@@ -7,6 +7,8 @@ class AppUrl {
 	static SiteInfo = this.BaseUrl + "/getsiteinfo";
 	static AllCategory = this.BaseUrl + "/getallcategory";
 	static Slider = this.BaseUrl + '/getslider';
+	static NoticeAll = this.BaseUrl + '/getnotice';
+
 
 	static getRemarkProudcts(remark){
 		return this.BaseUrl+ '/getremarkproduct/'+remark;

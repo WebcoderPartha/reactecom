@@ -3,10 +3,27 @@ import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
 import Notification from "../components/Notification/Notification";
+import axios from "axios";
+import AppUrl from "../api/AppUrl";
 
 class NotificationPage extends Component {
+    constructor() {
+        super();
+        this.state = {
+            notification: []
+        }
+    }
     componentDidMount() {
-        window.scroll(0, 0)
+        window.scroll(0, 0);
+        axios.get(AppUrl.NoticeAll).then(res => {
+            if (res.status === 200){
+                this.setState({
+                    notification:res.data
+                });
+            }
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     render() {
@@ -18,7 +35,7 @@ class NotificationPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <Notification />
+                <Notification notification={this.state.notification} />
                 <FooterDesktop/>
             </Fragment>
         );

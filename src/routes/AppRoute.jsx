@@ -20,20 +20,21 @@ class AppRoute extends Component {
         return (
             <Fragment>
                 <Switch>
-                    <Route exact path="/" component={HomePage} />
-                    <Route exact path="/login" component={LoginPage} />
-                    <Route exact path="/contact" component={ContactPage} />
-                    <Route exact path="/products/:product" component={ProductDetailsPage} />
-                    <Route exact path="/notifications" component={NotificationPage} />
-                    <Route exact path="/favourite" component={FavouritePage} />
-                    <Route exact path="/cart" component={CartPage} />
-                    <Route exact path="/about" component={AboutUsPage} />
-                    <Route exact path="/purchase" component={PurchasePage} />
-                    <Route exact path="/privacy" component={PrivacyPage} />
-                    <Route exact path="/refund" component={RefundPage} />
-                    <Route exact path="/company" component={CompnayProfilePage} />
-                    <Route exact path="/category/:slug" component={CategoryPage} />
-                    <Route exact path="/category/:category/:subcategory" component={SubcategoryPage} />
+
+                    <Route exact path="/" render={(props)=> <HomePage {...props} key={Date.now()} /> } />
+                    <Route exact path="/login" render={(props) => <LoginPage {...props} key={Date.now()} />} />
+                    <Route exact path="/contact" render={(props) => <ContactPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/products/:product" render={(props) => <ProductDetailsPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/notifications" render={(props) => <NotificationPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/favourite" render={(props) => <FavouritePage {...props} key={Date.now()} /> } />
+                    <Route exact path="/cart" render={(props) => <CartPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/about" render={(props) => <AboutUsPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/purchase" render={(props) => <PurchasePage {...props} key={Date.now()} /> } />
+                    <Route exact path="/privacy" render={(props) => <PrivacyPage {...props} key={Date.now()} />} />
+                    <Route exact path="/refund" render={(props) => <RefundPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/company" render={(props) => <CompnayProfilePage {...props} key={Date.now()} /> } />
+                    <Route exact path="/category/:slug" render={(props) => <CategoryPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/category/:category/:subcategory" render={(props) => <SubcategoryPage {...props} key={Date.now()} /> } />
                 </Switch>
             </Fragment>
         );

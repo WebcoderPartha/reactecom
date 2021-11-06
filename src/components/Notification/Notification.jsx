@@ -1,85 +1,55 @@
 import React, {Component, Fragment} from 'react';
 import {Col, Container, Row, Card, Modal, Button} from "react-bootstrap";
+import parse from 'html-react-parser'
 
 class Notification extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false
+            show: false,
+            title:'',
+            date:'',
+            description: '',
         }
     }
+
+
     handleClose = () =>{
         this.setState({ show:false})
     };
 
-    handleShow = () => {
+    handleShow = (e) => {
         this.setState({ show:true })
+        let title = e.target.getAttribute('data-title');
+        let description = e.target.getAttribute('data-description');
+        let date = e.target.getAttribute('data-date');
+        this.setState({
+            title:title,
+            description:description,
+            date:date
+        })
     };
     render() {
+        const notices = this.props.notification;
+        const myView = notices.map((notice, idx) => {
+            return (
+                <Col key={idx.toString()} className=" p-1 " md={6} lg={6} sm={12} xs={12}>
+                    <Card className="notification-card">
+                        <Card.Body>
+                            <h6>{notice.title}</h6>
+                            <p className="py-1  px-0 text-primary m-0"><i className="fa  fa-bell"></i>   Date: {notice.date} | Status: Unread</p>
+                            <Button data-date={notice.date} data-title={notice.title} data-description={notice.description} onClick={this.handleShow}>Details</Button>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            )
+        });
         return (
             <Fragment>
                 <Container className="TopSection">
                     <Row>
-                        <Col className=" p-1 " md={6} lg={6} sm={12} xs={12}>
-                            <Card onClick={this.handleShow} className="notification-card">
-                                <Card.Body>
-                                    <h6> Lorem Ipsum is simply dummy text of the printing</h6>
-                                    <p className="py-1  px-0 text-primary m-0"><i className="fa  fa-bell"></i>   Date: 22/12/2010 | Status: Unread</p>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                        {myView}
 
-                        <Col className=" p-1 " md={6} lg={6} sm={12} xs={12}>
-                            <Card onClick={this.handleShow} className="notification-card">
-                                <Card.Body>
-                                    <h6> Lorem Ipsum is simply dummy text of the printing</h6>
-                                    <p className="py-1   px-0 text-primary m-0"><i className="fa  fa-bell"></i>   Date: 22/12/2010 | Status: Unread</p>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-
-                        <Col className="p-1" md={6} lg={6} sm={12} xs={12}>
-                            <Card onClick={this.handleShow}  className="notification-card">
-                                <Card.Body>
-                                    <h6> Lorem Ipsum is simply dummy text of the printing</h6>
-                                    <p className="py-1  px-0 text-success m-0"><i className="fa  fa-bell"></i>   Date: 22/12/2010 | Status: Read</p>
-                                </Card.Body>
-                            </Card>
-
-                        </Col>
-
-                        <Col className="p-1" md={6} lg={6} sm={12} xs={12}>
-
-                            <Card onClick={this.handleShow} className="notification-card">
-                                <Card.Body>
-                                    <h5> Lorem Ipsum is simply dummy text of the printing</h5>
-                                    <p className="py-1  px-0 text-success m-0"><i className="fa fa-bell"></i>   Date: 22/12/2010 | Status: Read</p>
-                                </Card.Body>
-                            </Card>
-
-                        </Col>
-
-                        <Col className="p-1" md={6} lg={6} sm={12} xs={12}>
-
-                            <Card onClick={this.handleShow} className="notification-card">
-                                <Card.Body>
-                                    <h6> Lorem Ipsum is simply dummy text of the printing</h6>
-                                    <p className="py-1  px-0 text-success m-0"><i className="fa  fa-bell"></i>   Date: 22/12/2010 | Status: Read</p>
-                                </Card.Body>
-                            </Card>
-
-                        </Col>
-
-                        <Col className="p-1" md={6} lg={6} sm={12} xs={12}>
-
-                            <Card onClick={this.handleShow} className="notification-card">
-                                <Card.Body>
-                                    <h6> Lorem Ipsum is simply dummy text of the printing</h6>
-                                    <p className="py-1 px-0 text-success m-0"><i className="fa  fa-bell"></i>   Date: 22/12/2010 | Status: Read</p>
-                                </Card.Body>
-                            </Card>
-
-                        </Col>
 
                     </Row>
                 </Container>
@@ -89,11 +59,10 @@ class Notification extends Component {
                     onHide={this.handleClose}
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal title</Modal.Title>
+                        <Modal.Title>{this.state.date} | {this.state.title}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        I will not close if you click outside me. Don't even try to press
-                        escape key.
+                        {this.state.description ? parse(this.state.description) : ''}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose} variant="primary">Read</Button>
