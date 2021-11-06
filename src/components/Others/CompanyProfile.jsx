@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
 import axios from "axios";
 import parse from "html-react-parser"
 import AppUrl from "../../api/AppUrl";
+import {Link} from "react-router-dom";
 
 class CompanyProfile extends Component {
     constructor() {
@@ -35,6 +36,12 @@ class CompanyProfile extends Component {
         return (
             <Fragment>
                 <Container>
+                    <div className="breadbody">
+                        <Breadcrumb>
+                            <Link className="breadcrumb-item" to="/"> Home </Link>
+                            <Link className="breadcrumb-item" to="/company"> Company Profile </Link>
+                        </Breadcrumb>
+                    </div>
                     <Row className="p-2">
                         <Col className="shadow-sm bg-white mt-2" md={12} lg={12} sm={12} xs={12}>
                             <div className={this.state.loadingDiv+" ph-item"}>

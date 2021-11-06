@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
 import parse from 'html-react-parser';
-
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
-import ReactDOM from 'react-dom'
 import {Link} from "react-router-dom";
+import InnerImageZoom from 'react-inner-image-zoom';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
 
 class ProductDetails extends Component {
     constructor(props) {
@@ -18,7 +18,8 @@ class ProductDetails extends Component {
             long: '',
             sizeClass: '',
             productSlug: props.productSlug,
-            quantity: 1
+            quantity: 1,
+            previewImg: '0',
         }
     }
     componentDidMount() {
@@ -29,7 +30,8 @@ class ProductDetails extends Component {
                     short:res.data.short_desc,
                     long:res.data.long_desc,
                     category:res.data.category,
-                    subcategory: res.data.subcategory
+                    subcategory: res.data.subcategory,
+                    previewImg:res.data.product_image
                 })
             }
         }).catch(error => {
@@ -41,8 +43,11 @@ class ProductDetails extends Component {
     imgOnClick = (event) => {
         // document.getElementById('bigImage').src = event.target.src
         let imgSrc = event.target.getAttribute('src');
-        let previewImg = document.getElementById('bigImage');
-        ReactDOM.findDOMNode(previewImg).setAttribute('src', imgSrc);
+        // let previewImg = document.getElementById('bigImage');
+        // ReactDOM.findDOMNode(previewImg).setAttribute('src', imgSrc);
+        this.setState({
+            previewImg:imgSrc
+        })
     }
     discountPrice(regular, discount){
         if (discount){
@@ -71,6 +76,7 @@ class ProductDetails extends Component {
     }
 
     render() {
+
         let product1 = this.state.product.product_image;
         let product2 = this.state.product.product_image2;
         let product3 = this.state.product.product_image3;
@@ -81,6 +87,8 @@ class ProductDetails extends Component {
         let size = this.state.product.size;
         let subcategory = this.state.subcategory.subcategory_name;
         let category = this.state.category.category_name;
+
+
 
         // Same working Split
         // let colorShow = (this.state.product.color)?.split(',').map((color, idx)=>{
@@ -100,14 +108,22 @@ class ProductDetails extends Component {
            return <option key={idx.toString()} value={size}>{size}</option>
         });
 
+
+
         return (
             <Fragment>
                 <Container  className="BetweenTwoSection">
+                    <div className="breadbody">
+                        <Breadcrumb>
+                            <Link className="breadcrumb-item" to="/"> Home </Link>
+                            <Link className="breadcrumb-item" to={"/products/"+this.state.product.slug}> {this.state.product.product_name} </Link>
+                        </Breadcrumb>
+                    </div>
                     <Row className="p-2">
                         <Col className="shadow-sm bg-white pb-3 mt-4" md={12} lg={12} sm={12} xs={12}>
                             <Row>
                                 <Col className="p-3 text-center" md={6} lg={6} sm={12} xs={12}>
-                                    <img alt="" id="bigImage" className="singleProductBigImage" src={product1} />
+                                    <InnerImageZoom zoomType={"hover"} zoomScale={1.8} src={this.state.previewImg} zoomSrc={this.state.previewImg} />
                                     <Container  className="my-3">
                                         <Row>
                                             <Col className="p-0 m-0 text-center"  md={3} lg={3} sm={3} xs={3}>
@@ -160,7 +176,7 @@ class ProductDetails extends Component {
                                             )}
                                         </div>
                                         <div className="form-group">
-                                            <h6 className="mt-2">Quantity {this.state.quantity}</h6>
+                                            <h6 className="mt-2">Quantity</h6>
                                             <div className="row quantity">
                                                 <div className="col-4">
                                                     {this.state.quantity === 1 ? (

@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Card, Col, Container, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
@@ -74,6 +74,12 @@ class Category extends Component {
         return (
             <Fragment>
                 <Container>
+                    <div className="breadbody">
+                        <Breadcrumb>
+                            <Link className="breadcrumb-item" to="/"> Home </Link>
+                            <Link className="breadcrumb-item" to={"/category/"+this.state.categoryProducts.slug}> {this.state.categoryProducts.category_name} </Link>
+                        </Breadcrumb>
+                    </div>
                     <div className="section-title text-center">
                         <h2>{this.state.categoryProducts.category_name}</h2>
                         <p>Some of our exclusive collection, You may like.</p>

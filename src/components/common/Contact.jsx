@@ -1,9 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Breadcrumb, Button, Col, Container, Form, Row} from "react-bootstrap";
 import Validation from "../../Validation/Validation";
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
 import Notify from "../../Noty/Notify";
+import {Link} from "react-router-dom";
 // import {toast, ToastContainer} from "react-toastify";
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -100,6 +101,12 @@ class Contact extends Component {
         return (
             <Fragment>
                 <Container>
+                    <div className="breadbody">
+                        <Breadcrumb>
+                            <Link className="breadcrumb-item" to="/"> Home </Link>
+                        <Link className="breadcrumb-item" to="/contact"> Contact Us </Link>
+                        </Breadcrumb>
+                    </div>
                     <Row className="p-2">
                         <Col className="shadow-sm bg-white mt-2" md={12} lg={12} sm={12} xs={12}>
 

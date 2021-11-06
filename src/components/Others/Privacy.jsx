@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
 import axios from "axios";
 import parse from "html-react-parser"
 import AppUrl from "../../api/AppUrl";
+import {Link} from "react-router-dom";
 
 class Privacy extends Component {
     constructor() {
@@ -34,6 +35,12 @@ class Privacy extends Component {
             <Fragment>
                 <Container>
                     <Row className="p-2">
+                        <div className="breadbody">
+                            <Breadcrumb>
+                                <Link className="breadcrumb-item" to="/"> Home </Link>
+                                <Link className="breadcrumb-item" to="/privacy"> Privacy </Link>
+                            </Breadcrumb>
+                        </div>
                         <Col className="shadow-sm bg-white mt-2" md={12} lg={12} sm={12} xs={12}>
                             <div className={this.state.loaderDiv+" ph-item"}>
                                 <div className="ph-col-12">
