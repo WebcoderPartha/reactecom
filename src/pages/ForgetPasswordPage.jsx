@@ -2,17 +2,10 @@ import React, {Component, Fragment} from 'react';
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import UserLogin from "../components/common/UserLogin";
+import ForgetPassword from "../components/common/ForgetPassword";
 
-class LoginPage extends Component {
-
-    componentDidMount() {
-        window.scroll(0, 0)
-    }
-
+class ForgetPasswordPage extends Component {
     render() {
-        const user = this.props.user;
-        const setUser= this.props.setUser;
         return (
             <Fragment>
                 <div className="desktop">
@@ -21,11 +14,11 @@ class LoginPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <UserLogin user={user} setUser={setUser}  />
+                <ForgetPassword />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default LoginPage;
+export default ForgetPasswordPage;

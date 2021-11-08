@@ -8,6 +8,11 @@ class AppUrl {
 	static AllCategory = this.BaseUrl + "/getallcategory";
 	static Slider = this.BaseUrl + '/getslider';
 	static NoticeAll = this.BaseUrl + '/getnotice';
+	static Login = this.BaseUrl+ '/login';
+	static ForgetRequest = this.BaseUrl + '/forget';
+	static ResetPassword = this.BaseUrl + '/reset';
+	static GetAuthUser = this.BaseUrl+ '/getuser';
+	static RegisterUser = this.BaseUrl+ '/register';
 
 
 	static getRemarkProudcts(remark){
@@ -24,6 +29,10 @@ class AppUrl {
 
 	static singleProductPage(product_slug){
 		return this.BaseUrl+'/getsingleproduct/'+product_slug;
+	}
+
+	static getProductSearch(searchKeyword){
+		return this.BaseUrl+'/search/?s='+searchKeyword;
 	}
 
 

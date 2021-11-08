@@ -2,18 +2,24 @@ import React, {Component, Fragment} from 'react';
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import UserLogin from "../components/common/UserLogin";
+import Profile from "../components/common/Profile";
+import {Redirect} from "react-router";
 
-class LoginPage extends Component {
-
-    componentDidMount() {
-        window.scroll(0, 0)
+class ProfilePage extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            user:props.user,
+        }
     }
-
     render() {
-        const user = this.props.user;
-        const setUser= this.props.setUser;
+        if (!localStorage.getItem('token')){
+            return <Redirect to="/login" />
+        }
+
+
         return (
+
             <Fragment>
                 <div className="desktop">
                     <HeaderDesktop />
@@ -21,11 +27,11 @@ class LoginPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <UserLogin user={user} setUser={setUser}  />
+                <Profile user={this.state.user} />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default LoginPage;
+export default ProfilePage;

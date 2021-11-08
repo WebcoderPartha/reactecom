@@ -32,3 +32,11 @@ body{
 .row.quantity .col-4 {
     width: 12%;
 }
+
+#searchResult{
+    position: absolute;
+    width: 33% !important;
+}
+.searchImage{
+    width: 20%;
+}
