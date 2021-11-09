@@ -3,7 +3,7 @@ import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
 import ProductDetails from "../components/ProductDetails/ProductDetails";
-import ReletedProducts from "../components/ProductDetails/ReletedProducts";
+
 
 class ProductDetailsPage extends Component {
     constructor(props) {
@@ -26,7 +26,6 @@ class ProductDetailsPage extends Component {
                     <HeaderMobile />
                 </div>
                 <ProductDetails productSlug={this.state.productSlug} />
-                <ReletedProducts />
                 <FooterDesktop/>
             </Fragment>
         );

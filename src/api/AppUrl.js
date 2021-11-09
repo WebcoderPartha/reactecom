@@ -35,6 +35,10 @@ class AppUrl {
 		return this.BaseUrl+'/search/?s='+searchKeyword;
 	}
 
+	static getSuggestProduct(suggestKeyword){
+		return this.BaseUrl+'/suggestproduct/'+suggestKeyword;
+	}
+
 
 }
 

@@ -1,11 +1,13 @@
 import React, {Component, Fragment} from 'react';
-import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Card, Col, Container, Row} from "react-bootstrap";
 import parse from 'html-react-parser';
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
 import {Link} from "react-router-dom";
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
+import ReletedProducts from "./ReletedProducts";
+
 
 class ProductDetails extends Component {
     constructor(props) {
@@ -20,23 +22,41 @@ class ProductDetails extends Component {
             productSlug: props.productSlug,
             quantity: 1,
             previewImg: '0',
+            suggestSlug: '',
+            suggestProducts:[],
+
         }
     }
+
     componentDidMount() {
-        axios.get(AppUrl.singleProductPage(this.state.productSlug)).then(res => {
-            if (res.status === 200){
+        axios.get(AppUrl.singleProductPage(this.state.productSlug)).then(response => {
+            if (response.status === 200){
                 this.setState({
-                    product:res.data,
-                    short:res.data.short_desc,
-                    long:res.data.long_desc,
-                    category:res.data.category,
-                    subcategory: res.data.subcategory,
-                    previewImg:res.data.product_image
+                    product:response.data,
+                    short:response.data.short_desc,
+                    long:response.data.long_desc,
+                    category:response.data.category,
+                    subcategory: response.data.subcategory,
+                    previewImg:response.data.product_image,
+                    suggestSlug: response.data.subcategory.slug
+                });
+                axios.get(AppUrl.getSuggestProduct(this.state.suggestSlug)).then(response => {
+                    if (response.status === 200){
+                        this.setState({suggestProducts:response.data[0].products})
+                    }
+
+                }).catch(error => {
+                    if (error.response){
+                        console.log(error)
+                    }
                 })
             }
         }).catch(error => {
             console.log(error)
         });
+        // console.log(this.state.p)
+
+
     }
 
 
@@ -95,6 +115,9 @@ class ProductDetails extends Component {
         //     return <option value={color}>{color}</option>
         // });
         // Same working Split
+
+
+        // now
         let colorShow = color?.split(',').map((color, idx)=>{
            return <option key={idx.toString()} value={color}>{color}</option>
         });
@@ -104,6 +127,8 @@ class ProductDetails extends Component {
         // let sizeShow = (this.state.product.size)?.split(',').map((size, idx)=>{
         //     return <option value={size}>{size}</option>
         // })
+
+        // now
         let sizeShow = size?.split(',').map((size, idx) => {
            return <option key={idx.toString()} value={size}>{size}</option>
         });
@@ -145,10 +170,10 @@ class ProductDetails extends Component {
                                     <h5 className="Product-Name">{this.state.product.product_name}</h5>
                                     <div className="section-sub-title">{this.state.short ? parse(this.state.short) : ''}</div>
                                     <div className="input-group mt-3 mb-3">
-
+                
                                         {this.discountPrice(regular_price,discount_price)}
-
-
+                
+                
                                     </div>
                                     <div className="input-group mt-3 mb-3">
                                         <Link to={"/category/"+this.state.category.slug}><i className="fa fa-tag mt-1"></i> {category}</Link> &nbsp; &nbsp; <Link to={"/category/"+this.state.category.slug+"/"+this.state.subcategory.slug} ><i className="fa fa-tag mt-1"></i> {subcategory}</Link>
@@ -164,7 +189,7 @@ class ProductDetails extends Component {
                                                     </select>
                                                 </div>
                                             )}
-
+                
                                             {size === 'NA' ? '' : (
                                                 <div className="form-group col-6">
                                                     <h6 className="mt-2">Size</h6>
@@ -184,7 +209,7 @@ class ProductDetails extends Component {
                                                     ) : (
                                                         <div onClick={this.decrementQty} className="btn btn-danger">-</div>
                                                     )}
-
+                
                                                 </div>
                                                 <div className="col-4">
                                                     <input value={this.state.quantity} onChange={(e) => {this.setState({quantity:e.target.value})}} className="form-control" type="text"/>
@@ -194,7 +219,7 @@ class ProductDetails extends Component {
                                                 </div>
                                             </div>
                                         </div>
-
+                
                                         <div className="input-group mt-3">
                                             <button className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  Add To Cart</button>
                                             <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
@@ -203,31 +228,31 @@ class ProductDetails extends Component {
                                     </form>
                                 </Col>
                             </Row>
-
+                
                             <Row>
                                 <Col className="" md={6} lg={6} sm={12} xs={12}>
                                     <h6 className="mt-2">DETAILS</h6>
                                     {this.state.long ? parse(this.state.long) : ''}
                                 </Col>
-
+                
                                 <Col className="" md={6} lg={6} sm={12} xs={12}>
                                     <h6 className="mt-2">REVIEWS</h6>
                                     <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
                                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-
+                
                                     <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
                                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-
+                
                                     <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
                                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-
+                
                                 </Col>
                             </Row>
-
+                
                         </Col>
                     </Row>
                 </Container>
-
+                <ReletedProducts suggestProducts={this.state.suggestProducts} />
             </Fragment>
         );
     }
