@@ -22,6 +22,7 @@ import axios from "axios";
 import AppUrl from "../api/AppUrl";
 import Logout from "../components/common/Logout";
 
+
 class AppRoute extends Component {
     constructor() {
         super();
@@ -48,25 +49,25 @@ class AppRoute extends Component {
             <Fragment>
                 <Switch>
 
-                    <Route exact path="/" render={(props)=> <HomePage {...props} key={Date.now()} /> } />
+                    <Route exact path="/" render={(props)=> <HomePage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/login" render={(props) => <LoginPage {...props} user={this.state.user} setUser={this.setUser} key={Date.now()} />} />
                     <Route exact path="/logout" render={(props) => <Logout {...props} key={Date.now()} />} />
                     <Route exact path="/register" render={(props) => <RegisterPage user={this.state.user} setUser={this.setUser} {...props} key={Date.now()} />} />
-                    <Route exact path="/forget" render={(props) => <ForgetPasswordPage {...props} key={Date.now()} />} />
+                    <Route exact path="/forget" render={(props) => <ForgetPasswordPage user={this.state.user} {...props} key={Date.now()} />} />
                     <Route exact path="/reset" render={(props) => <ResetPasswordPage user={this.state.user} setUser={this.setUser} {...props} key={Date.now()} />} />
                     <Route exact path="/profile" render={(props) => <ProfilePage user={this.state.user} {...props} key={Date.now()} />} />
-                    <Route exact path="/contact" render={(props) => <ContactPage {...props} key={Date.now()} /> } />
-                    <Route exact path="/products/:product" render={(props) => <ProductDetailsPage {...props} key={Date.now()} /> } />
-                    <Route exact path="/notifications" render={(props) => <NotificationPage {...props} key={Date.now()} /> } />
-                    <Route exact path="/favourite" render={(props) => <FavouritePage {...props} key={Date.now()} /> } />
-                    <Route exact path="/cart" render={(props) => <CartPage {...props} key={Date.now()} /> } />
-                    <Route exact path="/about" render={(props) => <AboutUsPage {...props} key={Date.now()} /> } />
-                    <Route exact path="/purchase" render={(props) => <PurchasePage {...props} key={Date.now()} /> } />
-                    <Route exact path="/privacy" render={(props) => <PrivacyPage {...props} key={Date.now()} />} />
-                    <Route exact path="/refund" render={(props) => <RefundPage {...props} key={Date.now()} /> } />
-                    <Route exact path="/company" render={(props) => <CompnayProfilePage {...props} key={Date.now()} /> } />
-                    <Route exact path="/category/:slug" render={(props) => <CategoryPage {...props} key={Date.now()} /> } />
-                    <Route exact path="/category/:category/:subcategory" render={(props) => <SubcategoryPage {...props} key={Date.now()} /> } />
+                    <Route exact path="/contact" render={(props) => <ContactPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/products/:product" render={(props) => <ProductDetailsPage {...props} user={this.state.user} key={Date.now()} /> } />
+                    <Route exact path="/notifications" render={(props) => <NotificationPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/favourite" render={(props) => <FavouritePage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/cart" render={(props) => <CartPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/about" render={(props) => <AboutUsPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/purchase" render={(props) => <PurchasePage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/privacy" render={(props) => <PrivacyPage user={this.state.user} {...props} key={Date.now()} />} />
+                    <Route exact path="/refund" render={(props) => <RefundPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/company" render={(props) => <CompnayProfilePage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/category/:slug" render={(props) => <CategoryPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/category/:category/:subcategory" render={(props) => <SubcategoryPage user={this.state.user} {...props} key={Date.now()} /> } />
                 </Switch>
             </Fragment>
         );

@@ -13,6 +13,8 @@ class AppUrl {
 	static ResetPassword = this.BaseUrl + '/reset';
 	static GetAuthUser = this.BaseUrl+ '/getuser';
 	static RegisterUser = this.BaseUrl+ '/register';
+	static AddToCart = this.BaseUrl+ '/addtocart';
+	static FavouriteAdd = this.BaseUrl+'/addfavourite';
 
 
 	static getRemarkProudcts(remark){
@@ -37,6 +39,26 @@ class AppUrl {
 
 	static getSuggestProduct(suggestKeyword){
 		return this.BaseUrl+'/suggestproduct/'+suggestKeyword;
+	}
+
+	static getReviewByProduct(productID){
+		return this.BaseUrl+'/getreviews/'+productID;
+	}
+
+	static getCartItemCount(userID){
+		return this.BaseUrl+ '/getcartcount/'+userID;
+	}
+
+	static getFavouriteList(userID){
+		return this.BaseUrl+ '/getfavorite/'+userID;
+	}
+
+	static removeFavourite(userID, productID){
+		return this.BaseUrl+ '/removefavourte/'+userID+'/'+productID;
+	}
+
+	static countFavourite(userID){
+		return this.BaseUrl+'/favouritecount/'+userID;
 	}
 
 

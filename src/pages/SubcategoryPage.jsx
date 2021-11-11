@@ -9,7 +9,7 @@ class SubcategoryPage extends Component {
         super();
         this.state = {
             categorySlug: props.match.params.category,
-            subcategorySlug: props.match.params.subcategory,
+            subcategorySlug: props.match.params.subcategory
         }
 
     }
@@ -21,7 +21,7 @@ class SubcategoryPage extends Component {
         return (
             <Fragment>
                 <div className="desktop">
-                    <HeaderDesktop />
+                    <HeaderDesktop user={this.props.user} />
                 </div>
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />

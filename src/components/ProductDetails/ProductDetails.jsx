@@ -1,12 +1,14 @@
 import React, {Component, Fragment} from 'react';
-import {Breadcrumb, Card, Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Col, Container, Row} from "react-bootstrap";
 import parse from 'html-react-parser';
 import axios from "axios";
 import AppUrl from "../../api/AppUrl";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
 import ReletedProducts from "./ReletedProducts";
+import Reviews from "../common/Reviews";
+import Notify from "../../Noty/Notify";
 
 
 class ProductDetails extends Component {
@@ -24,7 +26,12 @@ class ProductDetails extends Component {
             previewImg: '0',
             suggestSlug: '',
             suggestProducts:[],
-
+            reviews:[],
+            color:'',
+            size:'',
+            user_id:props.user.id,
+            redirectUrl: false,
+            favItemReload: false
         }
     }
 
@@ -32,19 +39,34 @@ class ProductDetails extends Component {
         axios.get(AppUrl.singleProductPage(this.state.productSlug)).then(response => {
             if (response.status === 200){
                 this.setState({
+                    prodId:response.data.id,
                     product:response.data,
                     short:response.data.short_desc,
                     long:response.data.long_desc,
                     category:response.data.category,
                     subcategory: response.data.subcategory,
                     previewImg:response.data.product_image,
-                    suggestSlug: response.data.subcategory.slug
+                    suggestSlug: response.data.subcategory.slug,
+                    addToCart: 'Add To Cart'
                 });
+
+                // Suggested APIS
                 axios.get(AppUrl.getSuggestProduct(this.state.suggestSlug)).then(response => {
                     if (response.status === 200){
                         this.setState({suggestProducts:response.data[0].products})
                     }
 
+                }).catch(error => {
+                    if (error.response){
+                        console.log(error)
+                    }
+                });
+
+                // Reviews APIs
+                axios.get(AppUrl.getReviewByProduct(this.state.product.id)).then(response => {
+                    if (response.status === 200){
+                        this.setState({reviews:response.data})
+                    }
                 }).catch(error => {
                     if (error.response){
                         console.log(error)
@@ -59,7 +81,18 @@ class ProductDetails extends Component {
 
     }
 
-
+    pageRefresh = () => {
+        let url = window.location;
+        if (this.state.redirectUrl === true){
+            return <Redirect to={url} />
+        }
+    }
+    favItemReload = () => {
+        let url = window.location;
+        if (this.state.favItemReload === true){
+            return <Redirect to={url} />
+        }
+    }
     imgOnClick = (event) => {
         // document.getElementById('bigImage').src = event.target.src
         let imgSrc = event.target.getAttribute('src');
@@ -69,18 +102,7 @@ class ProductDetails extends Component {
             previewImg:imgSrc
         })
     }
-    discountPrice(regular, discount){
-        if (discount){
-            return (
-                <div>
-                    <div className="Product-price-card d-inline ">Reguler Price <del>Tk- {regular}</del></div>
-                    <div className="Product-price-card d-inline ">New Price Tk- <b>{discount}</b>
-                </div>
-                </div>
 
-            )
-        }
-    }
 
     incrementQty = () =>{
         let qty = this.state.quantity + 1;
@@ -93,6 +115,92 @@ class ProductDetails extends Component {
         this.setState({
             quantity: qty
         })
+    }
+    colorOnChange = (e) => {
+        this.setState({
+            color:e.target.value
+        })
+    }
+    sizeOnChange = (e) => {
+        this.setState({
+            size:e.target.value
+        })
+    }
+    FavouriteHandler = (e) => {
+        e.preventDefault();
+        let favButton = document.getElementById('favButton');
+        favButton.innerHTML = 'Adding...';
+
+        if (!localStorage.getItem('token')){
+            Notify.error("Please login first!");
+        }else{
+
+            let MyFormData = new FormData();
+            MyFormData.append('user_id', this.props.user.id);
+            MyFormData.append('product_id', this.state.product.id);
+            axios.post(AppUrl.FavouriteAdd, MyFormData).then(response => {
+                if (response.status === 200){
+                    Notify.success(response.data.success);
+                    favButton.innerHTML = 'Favourite';
+                    this.setState({
+                        favItemReload:true
+                    })
+                }
+            }).catch(error => {
+                if (error.response){
+                    console.log(error)
+                }
+            })
+        }
+
+    }
+    addToCartHandler = (event) => {
+
+        event.preventDefault();
+        let product_id = this.state.product.id
+        let color = this.state.color;
+        let size = this.state.size;
+        let qty = this.state.quantity;
+        let user_id = this.state.user_id
+		if(!(this.state.product.color === 'NA') && color.length === 0){
+            Notify.warning("Please select color!")
+        }else if(!(this.state.product.size === 'NA') && size.length === 0){
+            Notify.warning("Please select Size!")
+        }else if(!localStorage.getItem('token')){
+            Notify.warning("Please login first!")
+        }else{
+
+            this.setState({
+                addToCart:'Adding..'
+            });
+
+            let data = new FormData();
+            data.append('product_id', product_id);
+            data.append('user_id', user_id);
+            data.append('color', color);
+            data.append('size', size);
+            data.append('qty', qty);
+
+            axios.post(AppUrl.AddToCart, data).then(response => {
+                if (response.status === 200){
+                    Notify.success(response.data.success);
+					document.getElementById('clearData').reset();
+                    this.setState({
+                        addToCart:'Add To Cart',
+						quantity: 1,
+						color: '',
+						size: '',
+                        redirectUrl:true
+                    })
+                }
+            }).catch(error => {
+                if (error.response){
+                    console.log(error)
+                }
+            })
+
+        }
+
     }
 
     render() {
@@ -133,6 +241,22 @@ class ProductDetails extends Component {
            return <option key={idx.toString()} value={size}>{size}</option>
         });
 
+        let price;
+        if (discount_price === null){
+            price = (
+                <div>
+                    <div className="Product-price-card d-inline ">Reguler Price: Tk- {regular_price}</div>
+                </div>
+            )
+        }else{
+            price = (
+                <div>
+                    <div className="Product-price-card d-inline ">Reguler Price: <del>Tk- {regular_price}</del></div>
+                    <div className="Product-price-card d-inline ">New Price: Tk- <b>{discount_price}</b></div>
+                </div>
+            )
+
+        }
 
 
         return (
@@ -171,19 +295,20 @@ class ProductDetails extends Component {
                                     <div className="section-sub-title">{this.state.short ? parse(this.state.short) : ''}</div>
                                     <div className="input-group mt-3 mb-3">
                 
-                                        {this.discountPrice(regular_price,discount_price)}
-                
+                                        {/*{this.discountPrice(regular_price,discount_price)}*/}
+
+                                        {price}
                 
                                     </div>
                                     <div className="input-group mt-3 mb-3">
                                         <Link to={"/category/"+this.state.category.slug}><i className="fa fa-tag mt-1"></i> {category}</Link> &nbsp; &nbsp; <Link to={"/category/"+this.state.category.slug+"/"+this.state.subcategory.slug} ><i className="fa fa-tag mt-1"></i> {subcategory}</Link>
                                     </div>
-                                    <form>
+                                    <form id="clearData" onSubmit={this.addToCartHandler}>
                                         <div className="row">
                                             {color === 'NA' ? '' : (
                                                 <div className="form-group col-6">
                                                     <h6 className="mt-2">Color {this.state.colorClass}</h6>
-                                                    <select className="form-control">
+                                                    <select onChange={this.colorOnChange} className="form-control">
                                                         <option>Choose Color</option>
                                                         {colorShow}
                                                     </select>
@@ -193,7 +318,7 @@ class ProductDetails extends Component {
                                             {size === 'NA' ? '' : (
                                                 <div className="form-group col-6">
                                                     <h6 className="mt-2">Size</h6>
-                                                    <select className="form-control">
+                                                    <select onChange={this.sizeOnChange} className="form-control">
                                                         <option >Choose Size</option>
                                                         {sizeShow}
                                                     </select>
@@ -219,13 +344,13 @@ class ProductDetails extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                
-                                        <div className="input-group mt-3">
-                                            <button className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  Add To Cart</button>
-                                            <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
-                                            <button className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
-                                        </div>
                                     </form>
+                                        <div className="input-group mt-3">
+                                            <button form="clearData" type="submit" className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  {this.state.addToCart}</button>
+                                            <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
+                                            <button onClick={this.FavouriteHandler} id="favButton" className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
+                                        </div>
+
                                 </Col>
                             </Row>
                 
@@ -235,24 +360,15 @@ class ProductDetails extends Component {
                                     {this.state.long ? parse(this.state.long) : ''}
                                 </Col>
                 
-                                <Col className="" md={6} lg={6} sm={12} xs={12}>
-                                    <h6 className="mt-2">REVIEWS</h6>
-                                    <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                
-                                    <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                
-                                    <p className=" p-0 m-0"><span className="Review-Title">Kazi Ariyan</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> </span> </p>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                
-                                </Col>
+                                <Reviews reviews={this.state.reviews} />
                             </Row>
                 
                         </Col>
                     </Row>
                 </Container>
                 <ReletedProducts suggestProducts={this.state.suggestProducts} />
+                {this.pageRefresh()}
+                {this.favItemReload()}
             </Fragment>
         );
     }

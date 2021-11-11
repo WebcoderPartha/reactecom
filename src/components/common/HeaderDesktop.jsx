@@ -15,7 +15,9 @@ class HeaderDesktop extends Component {
             category: '',
             subcategory: '',
             searchBox: 'd-none',
-            loaderDiv: 'd-none'
+            loaderDiv: 'd-none',
+            cartItem: '',
+            favItem: ''
         }
     }
     searchOnChange = () => {
@@ -45,6 +47,32 @@ class HeaderDesktop extends Component {
         })
 
     }
+    componentDidMount() {
+        axios.get(AppUrl.getCartItemCount(this.props.user.id)).then(response => {
+            if (response.status === 200){
+                this.setState({
+                    cartItem:response.data
+                })
+            }
+        }).catch(error => {
+            if (error.response){
+                console.log(error)
+            }
+        });
+
+        axios.get(AppUrl.countFavourite(this.props.user.id)).then(response => {
+            if (response.status === 200){
+                this.setState({
+                    favItem:response.data
+                });
+            }
+        }).catch(error => {
+            if (error.response){
+                console.log(error)
+            }
+        });
+    }
+
     render() {
         const productResults = this.state.productResults;
         const myView =  productResults.map((product, idx) => {
@@ -68,14 +96,32 @@ class HeaderDesktop extends Component {
 
         if (localStorage.getItem('token')){
              myLink =  (
-                <Link to="/logout" className="btn h4">Logout</Link>
+                <span>
+                      &nbsp;&nbsp; <Link to="/favourite">
+                          <i className="text-black fa h4 fa-heart"></i>
+                            <sup>
+                                <span className="badge text-white bg-danger">{this.state.favItem}</span>
+                            </sup>
+                      </Link>
+                    <Link to="/logout" className="btn h4">Logout</Link>
+                    <Link to="/cart" className="cart-btn">
+                        <i className="fa fa-shopping-cart"></i> {this.state.cartItem} Items
+                    </Link>
+                </span>
             )
 
         }else{
              myLink = (
                 <span>
+                    &nbsp;&nbsp;
+                     <Link to="/favourite">
+                         <i className="text-black fa h4 fa-heart"></i> <sup><span className="badge text-white bg-danger"> 0</span></sup>
+                                    </Link>
                     <Link to="/login" className="btn h4">Login</Link>
                     <Link to="/register" className="h4 btn">REGISTER</Link>
+                    <Link to="/cart" className="cart-btn">
+                        <i className="fa fa-shopping-cart"></i> 0 Items
+                    </Link>
                 </span>
             )
         }
@@ -113,16 +159,11 @@ class HeaderDesktop extends Component {
                                 </Col>
 
                                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
-                                    <Link to="/favourite">
-                                        <i className="text-black fa h4 fa-heart"></i> <sup><span className="badge text-white bg-danger">4</span></sup>
-                                    </Link>
                                     <Link to="/notifications">
                                         <i className="text-black fa h4 fa-bell"></i> <sup><span className="badge text-white bg-danger">4</span></sup>
                                     </Link>
                                     {myLink}
-                                    <Link to="/cart" className="cart-btn">
-                                        <i className="fa fa-shopping-cart"></i> 3 Items
-                                    </Link>
+
 
                                 </Col>
 

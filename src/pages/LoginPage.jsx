@@ -16,7 +16,7 @@ class LoginPage extends Component {
         return (
             <Fragment>
                 <div className="desktop">
-                    <HeaderDesktop />
+                    <HeaderDesktop user={this.props.user} />
                 </div>
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />

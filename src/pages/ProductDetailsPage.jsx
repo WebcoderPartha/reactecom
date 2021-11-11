@@ -9,7 +9,8 @@ class ProductDetailsPage extends Component {
     constructor(props) {
         super();
         this.state = {
-            productSlug:props.match.params.product
+            productSlug:props.match.params.product,
+            user:props.user
         }
     }
     componentDidMount() {
@@ -20,12 +21,12 @@ class ProductDetailsPage extends Component {
         return (
             <Fragment>
                 <div className="desktop">
-                    <HeaderDesktop />
+                    <HeaderDesktop user={this.props.user} />
                 </div>
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <ProductDetails productSlug={this.state.productSlug} />
+                <ProductDetails user={this.state.user} productSlug={this.state.productSlug} />
                 <FooterDesktop/>
             </Fragment>
         );

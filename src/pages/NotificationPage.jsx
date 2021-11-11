@@ -5,6 +5,7 @@ import FooterDesktop from "../components/common/FooterDesktop";
 import Notification from "../components/Notification/Notification";
 import axios from "axios";
 import AppUrl from "../api/AppUrl";
+import {Redirect} from "react-router";
 
 class NotificationPage extends Component {
     constructor() {
@@ -27,10 +28,13 @@ class NotificationPage extends Component {
     }
 
     render() {
+        if (!localStorage.getItem('token')){
+            return <Redirect to={"/"} />
+        }
         return (
             <Fragment>
                 <div className="desktop">
-                    <HeaderDesktop />
+                    <HeaderDesktop user={this.props.user} />
                 </div>
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />

@@ -22,13 +22,14 @@ class ProfilePage extends Component {
 
             <Fragment>
                 <div className="desktop">
-                    <HeaderDesktop />
+                    <HeaderDesktop user={this.props.user} />s
                 </div>
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
                 <Profile user={this.state.user} />
                 <FooterDesktop/>
+
             </Fragment>
         );
     }
