@@ -31,7 +31,8 @@ class ProductDetails extends Component {
             size:'',
             user_id:props.user.id,
             redirectUrl: false,
-            favItemReload: false
+            favItemReload: false,
+            orderNowRedirectURL:false
         }
     }
 
@@ -202,6 +203,58 @@ class ProductDetails extends Component {
         }
 
     }
+    orderNow = (e) => {
+        e.preventDefault();
+
+        let product_id = this.state.product.id
+        let color = this.state.color;
+        let size = this.state.size;
+        let qty = this.state.quantity;
+        let user_id = this.state.user_id
+        if(!(this.state.product.color === 'NA') && color.length === 0){
+            Notify.warning("Please select color!")
+        }else if(!(this.state.product.size === 'NA') && size.length === 0){
+            Notify.warning("Please select Size!")
+        }else if(!localStorage.getItem('token')){
+            Notify.warning("Please login first!")
+        }else{
+
+            let orderNow = document.getElementById('orderNow');
+            orderNow.innerHTML = "Ordering..."
+
+            let data = new FormData();
+            data.append('product_id', product_id);
+            data.append('user_id', user_id);
+            data.append('color', color);
+            data.append('size', size);
+            data.append('qty', qty);
+
+            axios.post(AppUrl.AddToCart, data).then(response => {
+                if (response.status === 200){
+                    Notify.success(response.data.success);
+                    document.getElementById('clearData').reset();
+                    this.setState({
+                        quantity: 1,
+                        color: '',
+                        size: '',
+                        orderNowRedirectURL:true
+                    })
+                }
+            }).catch(error => {
+                if (error.response){
+                    console.log(error)
+                }
+            })
+
+        }
+
+    }
+
+    orderNowRedirectURL = () => {
+        if (this.state.orderNowRedirectURL === true){
+            return <Redirect to={'/checkout'} />
+        }
+    }
 
     render() {
 
@@ -347,7 +400,7 @@ class ProductDetails extends Component {
                                     </form>
                                         <div className="input-group mt-3">
                                             <button form="clearData" type="submit" className="btn site-btn m-1 "> <i className="fa fa-shopping-cart"></i>  {this.state.addToCart}</button>
-                                            <button className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
+                                            <button id="orderNow" onClick={this.orderNow} className="btn btn-primary m-1"> <i className="fa fa-car"></i> Order Now</button>
                                             <button onClick={this.FavouriteHandler} id="favButton" className="btn btn-primary m-1"> <i className="fa fa-heart"></i> Favourite</button>
                                         </div>
 
@@ -369,6 +422,7 @@ class ProductDetails extends Component {
                 <ReletedProducts suggestProducts={this.state.suggestProducts} />
                 {this.pageRefresh()}
                 {this.favItemReload()}
+                {this.orderNowRedirectURL()}
             </Fragment>
         );
     }

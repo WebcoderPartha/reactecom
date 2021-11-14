@@ -1,15 +1,15 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component,Fragment} from 'react';
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import Cart from "../components/Cart/Cart";
-
-class CartPage extends Component {
-    componentDidMount() {
-        window.scroll(0, 0)
-    }
-
+import EditProfile from "../components/Profile/EditProfile";
+import {Redirect} from "react-router-dom";
+class EditProfilePage extends Component {
     render() {
+        if (!localStorage.getItem('token')){
+            return <Redirect to={"/"} />
+        }
+        const setUser = this.props.setUser
         return (
             <Fragment>
                 <div className="desktop">
@@ -18,11 +18,11 @@ class CartPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <Cart user={this.props.user} />
+                <EditProfile user={this.props.user} setUser={setUser} />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default CartPage;
+export default EditProfilePage;

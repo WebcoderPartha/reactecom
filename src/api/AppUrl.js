@@ -15,7 +15,12 @@ class AppUrl {
 	static RegisterUser = this.BaseUrl+ '/register';
 	static AddToCart = this.BaseUrl+ '/addtocart';
 	static FavouriteAdd = this.BaseUrl+'/addfavourite';
+	static ConfirmOrder = this.BaseUrl+'/placeorder';
+	static ReviewStore = this.BaseUrl+'/reviewstore';
 
+	static imagePath(value){
+		return 'http://127.0.0.1:8000/'+value
+	}
 
 	static getRemarkProudcts(remark){
 		return this.BaseUrl+ '/getremarkproduct/'+remark;
@@ -60,6 +65,42 @@ class AppUrl {
 	static countFavourite(userID){
 		return this.BaseUrl+'/favouritecount/'+userID;
 	}
+
+	static getCartItems(userID){
+		return this.BaseUrl + '/getcartitem/'+userID;
+	}
+
+	static removeCartItem(userID, productID){
+		return this.BaseUrl + '/removecart/'+userID+'/'+productID;
+	}
+
+	static increment(userID, cartID){
+		return this.BaseUrl + '/increment/'+userID+'/'+cartID;
+	}
+
+	static decrement(userID, cartID){
+		return this.BaseUrl + '/decrement/'+userID+'/'+cartID;
+	}
+
+	static checkout(userID){
+		return this.BaseUrl + '/checkout/'+userID;
+	}
+	static getOrderList(customer_email){
+		return this.BaseUrl + '/getorders/'+customer_email;
+	}
+
+	static getInvoiceByOrderList(invoiceNo){
+		return this.BaseUrl+'/getinvorders/'+invoiceNo;
+	}
+
+	static UpdatePassword(userID){
+		return this.BaseUrl + '/updatepassword/'+userID;
+	}
+
+	static UpdateProfile(userID){
+		return this.BaseUrl + '/updateprofile/'+userID;
+	}
+
 
 
 }

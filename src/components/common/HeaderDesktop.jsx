@@ -103,6 +103,7 @@ class HeaderDesktop extends Component {
                                 <span className="badge text-white bg-danger">{this.state.favItem}</span>
                             </sup>
                       </Link>
+                    <Link to="/profile" className="btn h4"><i className="fa fa-user fa-2x"></i></Link>
                     <Link to="/logout" className="btn h4">Logout</Link>
                     <Link to="/cart" className="cart-btn">
                         <i className="fa fa-shopping-cart"></i> {this.state.cartItem} Items

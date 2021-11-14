@@ -21,6 +21,11 @@ import ProfilePage from "../pages/ProfilePage";
 import axios from "axios";
 import AppUrl from "../api/AppUrl";
 import Logout from "../components/common/Logout";
+import CheckoutPage from "../pages/CheckoutPage";
+import OrderListPage from "../pages/OrderListPage";
+import OrderDetailsPage from "../pages/OrderDetailsPage";
+import EditProfilePage from "../pages/EditProfilePage";
+import ChangePasswordPage from "../pages/ChangePasswordPage";
 
 
 class AppRoute extends Component {
@@ -61,6 +66,9 @@ class AppRoute extends Component {
                     <Route exact path="/notifications" render={(props) => <NotificationPage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/favourite" render={(props) => <FavouritePage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/cart" render={(props) => <CartPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/checkout" render={(props) => <CheckoutPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/order/list" render={(props) => <OrderListPage user={this.state.user} {...props} key={Date.now()} /> } />
+                    <Route exact path="/order/:invoiceNo" render={(props) => <OrderDetailsPage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/about" render={(props) => <AboutUsPage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/purchase" render={(props) => <PurchasePage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/privacy" render={(props) => <PrivacyPage user={this.state.user} {...props} key={Date.now()} />} />
@@ -68,6 +76,9 @@ class AppRoute extends Component {
                     <Route exact path="/company" render={(props) => <CompnayProfilePage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/category/:slug" render={(props) => <CategoryPage user={this.state.user} {...props} key={Date.now()} /> } />
                     <Route exact path="/category/:category/:subcategory" render={(props) => <SubcategoryPage user={this.state.user} {...props} key={Date.now()} /> } />
+
+                    <Route exact path="/profile/edit/:id/:slug" render={(props) => <EditProfilePage user={this.state.user} setUser={this.setUser} {...props} key={Date.now()} /> } />
+                    <Route exact path="/profile/:id/:slug/update-password" render={(props) => <ChangePasswordPage user={this.state.user} {...props} key={Date.now()} /> } />
                 </Switch>
             </Fragment>
         );

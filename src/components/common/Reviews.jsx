@@ -1,66 +1,49 @@
 import React, {Component, Fragment} from 'react';
 import {Col} from "react-bootstrap";
-
+import ReactStars from "react-rating-stars-component";
 
 class Reviews extends Component {
 
     render() {
-        const review = this.props.reviews;
+        const reviews = this.props.reviews;
         let myView;
-        if (review.length > 0){
-             myView =  review.map((rev,i) => {
-                if (rev.star === '1'){
-                    return (
-                        <div key={i.toString()}>
-                            <p className=" p-0 m-0"><span className="Review-Title">{rev.user.name}</span> <span className="text-success"><i className="fa fa-star"></i>  </span></p>
-                            <p>{rev.comment}</p>
-                        </div>
-                    )
-                }else if(rev.star === '2'){
-                    return (
-                        <div key={i.toString()}>
-                            <p className=" p-0 m-0"><span className="Review-Title">{rev.user.name}</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i>  </span></p>
-                            <p>{rev.comment}</p>
-                        </div>
-                    )
-                }else if(rev.star === '3'){
-                    return (
-                        <div key={i.toString()}>
-                            <p className=" p-0 m-0"><span className="Review-Title">{rev.user.name}</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i>  </span></p>
-                            <p>{rev.comment}</p>
-                        </div>
-                    )
-                }else if(rev.star === '4'){
-                    return (
-                        <div key={i.toString()}>
-                            <p className=" p-0 m-0"><span className="Review-Title">{rev.user.name}</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i>  </span></p>
-                            <p>{rev.comment}</p>
-                        </div>
-                    )
-                }else if(rev.star === '5'){
-                    return (
-                        <div key={i.toString()}>
-                            <p className=" p-0 m-0"><span className="Review-Title">{rev.user.name}</span> <span className="text-success"><i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i> <i className="fa fa-star"></i>  </span></p>
-                            <p>{rev.comment}</p>
-                        </div>
-                    )
-                }
+        if (reviews.length > 0){
+            myView = reviews.map((review, idx)=> {
+                return (
+                    <div key={idx.toString()}>
+                        <ReactStars edit={false} value={review.star} count={5} size={40} activeColor="orange" isHalf={true}
+                                    emptyIcon={<i className="far fa-star"></i>}
+                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                    fullIcon={<i className="fa fa-star"></i>} />
+                        <p className=" p-0 m-0">
+                            <span className="Review-Title">by {review.user.name}</span>
+                        </p>
+                        <p>{review.comment}</p>
+                        <hr/>
+                    </div>
+                )
             })
 
+            return (
+                <Fragment>
+                    <Col className="" md={6} lg={6} sm={12} xs={12}>
+                        <h6 className="mt-2">REVIEWS</h6>
+                        {myView}
+                    </Col>
+                </Fragment>
+            );
         }else{
-            myView = (
-                <p>No Reviews Available</p>
+            return (
+                <Fragment>
+                    <Col className="" md={6} lg={6} sm={12} xs={12}>
+                        <h6 className="mt-2">REVIEWS</h6>
+                        <div>
+                            <h2>No Review Yet</h2>
+                        </div>
+                    </Col>
+                </Fragment>
             );
         }
-
-        return (
-            <Fragment>
-                <Col className="" md={6} lg={6} sm={12} xs={12}>
-                    <h6 className="mt-2">REVIEWS</h6>
-                    {myView}
-                </Col>
-            </Fragment>
-        );
     }
 }
 

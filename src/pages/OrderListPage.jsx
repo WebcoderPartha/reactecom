@@ -1,15 +1,20 @@
 import React, {Component, Fragment} from 'react';
+import {Redirect} from "react-router";
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import Cart from "../components/Cart/Cart";
+import OrderList from "../components/Order/OrderList";
 
-class CartPage extends Component {
+class OrderListPage extends Component {
     componentDidMount() {
         window.scroll(0, 0)
     }
 
     render() {
+        if (!localStorage.getItem('token')){
+            return <Redirect to="/login" />
+        }
+        const user = this.props.user;
         return (
             <Fragment>
                 <div className="desktop">
@@ -18,11 +23,11 @@ class CartPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <Cart user={this.props.user} />
+                <OrderList user={user} />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default CartPage;
+export default OrderListPage;

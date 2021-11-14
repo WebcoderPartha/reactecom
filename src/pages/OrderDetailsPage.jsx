@@ -1,15 +1,27 @@
 import React, {Component, Fragment} from 'react';
+import {Redirect} from "react-router-dom";
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import Cart from "../components/Cart/Cart";
+import OrderDetails from "../components/Order/OrderDetails";
 
-class CartPage extends Component {
+class OrderDetailsPage extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            invoiceNo:props.match.params.invoiceNo,
+            user: props.user
+        }
+    }
+
     componentDidMount() {
-        window.scroll(0, 0)
+        window.scroll(0, 0);
     }
 
     render() {
+        if (!localStorage.getItem('token')){
+            return <Redirect to="/login" />
+        }
         return (
             <Fragment>
                 <div className="desktop">
@@ -18,11 +30,11 @@ class CartPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <Cart user={this.props.user} />
+                <OrderDetails invoiceNo={this.state.invoiceNo} user={this.state.user} />
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default CartPage;
+export default OrderDetailsPage;

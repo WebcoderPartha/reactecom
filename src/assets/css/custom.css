@@ -40,3 +40,20 @@ body{
 .searchImage{
     width: 20%;
 }
+.cartElement {
+    float: left !important;
+}
+.cartElement.cartqtyfield {
+    width: 14%;
+}
+img.cartpageimage {
+    width: 16%;
+}
+.userprofiless {
+    width: 50% !important;
+    border-radius: 50%;
+}
+
+.starReview{
+    color: orange;
+}

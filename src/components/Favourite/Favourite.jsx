@@ -4,6 +4,7 @@ import axios from "axios";
 import AppUrl from "../../api/AppUrl";
 import NewArrivalLoader from "../../Placeholder/NewArrivalLoader";
 import Notify from "../../Noty/Notify";
+import {Redirect} from "react-router-dom";
 
 class Favourite extends Component {
     constructor() {
@@ -11,7 +12,8 @@ class Favourite extends Component {
         this.state = {
             favourites: [],
             loaderDiv: '',
-            mainDiv: 'd-none'
+            mainDiv: 'd-none',
+            pageRefresh: false
         }
     }
     componentDidMount() {
@@ -43,7 +45,8 @@ class Favourite extends Component {
                 })
                 Notify.success(response.data.success);
                 this.setState({
-                    favourites:newFavourite
+                    favourites:newFavourite,
+                    pageRefresh:true
                 })
             }
         }).catch(error => {
@@ -51,6 +54,12 @@ class Favourite extends Component {
                 console.log(error);
             }
         })
+    }
+    pageRefresh = () => {
+        let url = window.location;
+        if (this.state.pageRefresh){
+            return <Redirect to={url} />
+        }
     }
 
     render() {
@@ -105,6 +114,7 @@ class Favourite extends Component {
                         {myView}
                     </Row>
                 </Container>
+                {this.pageRefresh()}
             </Fragment>
         );
     }

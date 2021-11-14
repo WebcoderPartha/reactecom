@@ -2,13 +2,9 @@ import React, {Component, Fragment} from 'react';
 import HeaderDesktop from "../components/common/HeaderDesktop";
 import HeaderMobile from "../components/common/HeaderMobile";
 import FooterDesktop from "../components/common/FooterDesktop";
-import Cart from "../components/Cart/Cart";
+import ChangePassword from "../components/Profile/ChangePassword";
 
-class CartPage extends Component {
-    componentDidMount() {
-        window.scroll(0, 0)
-    }
-
+class ChangePasswordPage extends Component {
     render() {
         return (
             <Fragment>
@@ -18,11 +14,11 @@ class CartPage extends Component {
                 <div className="mobile" style={{display:'none'}}>
                     <HeaderMobile />
                 </div>
-                <Cart user={this.props.user} />
+                <ChangePassword  user={this.props.user}/>
                 <FooterDesktop/>
             </Fragment>
         );
     }
 }
 
-export default CartPage;
+export default ChangePasswordPage;
